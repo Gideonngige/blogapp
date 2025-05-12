@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
+import axios from 'axios';
 
 export default function Home() {
-  // You can replace this with API data later
-  const [blogs, setBlogs] = useState([
-    {
-      id: 1,
-      title: "Mastering React Basics",
-      author: "Gideon Ushindi",
-      date: "May 10, 2025",
-      avatar: "https://i.pravatar.cc/150?img=3",
-      blogImage: "https://i.pravatar.cc/150?img=4",
-      content: "React is a powerful JavaScript library for building user interfaces. Start by learning components, state, and props...",
-    },
-    {
-      id: 2,
-      title: "Styling with Tailwind CSS",
-      author: "Jane Developer",
-      date: "May 9, 2025",
-      avatar: "https://i.pravatar.cc/150?img=5",
-      blogImage: "https://i.pravatar.cc/150?img=5",
-      content: "Tailwind CSS gives you utility classes to build responsive and beautiful interfaces quickly and efficiently...",
-    },
-  ]);
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/get_blog_posts/');
+        const posts = response.data.posts;
+
+        // Optional: add dummy author/date/avatar if not in backend
+        const enriched = posts.map(post => ({
+          ...post,
+          author: "Gideon Ushindi", // Replace or enhance as needed
+          date: new Date().toLocaleDateString(),
+          avatar: "https://i.pravatar.cc/150?img=3",
+          blogImage: post.image, // image from Cloudinary URL
+        }));
+
+        setBlogs(enriched);
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
 
   return (
     <Layout>

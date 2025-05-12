@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function PostBlog() {
   const [form, setForm] = useState({
@@ -6,6 +7,8 @@ export default function PostBlog() {
     image: null,
     content: '',
   });
+
+  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -16,10 +19,37 @@ export default function PostBlog() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle form submission here (e.g., send to Django backend)
-    console.log('Post blog:', form);
+
+    const formData = new FormData();
+    formData.append('title', form.title);
+    formData.append('content', form.content);
+    formData.append('image', form.image);
+
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/postblog/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      alert("Blog posted successfully!");
+
+      if (response.status === 200 || response.status === 201) {
+        setMessage('Blog posted successfully!');
+        setForm({ title: '', image: null, content: '' });
+        console.log('Blog posted successfully:', response.data);
+      }
+
+      
+    } catch (error) {
+      console.error(error);
+      setMessage('Failed to post blog. Check console for errors.');
+    }
   };
 
   return (
@@ -27,12 +57,13 @@ export default function PostBlog() {
       <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow">
         <h2 className="text-2xl font-bold mb-6 text-center">Post a New Blog</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
             <input
               type="text"
               name="title"
+              value={form.title}
               required
               onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -55,6 +86,7 @@ export default function PostBlog() {
             <textarea
               name="content"
               rows="6"
+              value={form.content}
               required
               onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -68,6 +100,8 @@ export default function PostBlog() {
             Post Blog
           </button>
         </form>
+
+        {message && <p className="mt-4 text-center text-green-600">{message}</p>}
       </div>
     </div>
   );

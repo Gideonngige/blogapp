@@ -1,26 +1,62 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signin() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle sign-in logic or API call here
-    console.log('Login Data:', form);
+    setLoading(true);
+    setMessage('');
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/signin/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(data.message || 'Successfully signed in');
+        navigate('/');
+        // TODO: Redirect or store session info if needed
+      } else {
+        setMessage(data.message || 'Sign in failed');
+      }
+    } catch (error) {
+      console.error('Sign-in error:', error);
+      setMessage('An error occurred during sign in');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 font-serif">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+
+        {message && (
+          <div className="mb-4 text-center text-sm text-red-600">
+            {message}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -29,6 +65,7 @@ export default function Signin() {
               type="email"
               name="email"
               required
+              value={form.email}
               onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -40,6 +77,7 @@ export default function Signin() {
               type="password"
               name="password"
               required
+              value={form.password}
               onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -47,9 +85,10 @@ export default function Signin() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            disabled={loading}
+            className={`w-full py-2 rounded text-white transition ${loading ? 'bg-gray-500' : 'bg-blue-600 hover:bg-blue-700'}`}
           >
-            Sign In
+            {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
 
