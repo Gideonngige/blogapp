@@ -8,15 +8,17 @@ export default function Home() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/get_blog_posts/');
+        const response = await axios.get('https://myblogbackend-phgi.onrender.com/get_blog_posts/');
         const posts = response.data.posts;
+        const user_id = localStorage.getItem('user_id');
+        // alert("UserId: " + user_id);
 
         // Optional: add dummy author/date/avatar if not in backend
         const enriched = posts.map(post => ({
           ...post,
-          author: "Gideon Ushindi", // Replace or enhance as needed
-          date: new Date().toLocaleDateString(),
-          avatar: "https://i.pravatar.cc/150?img=3",
+          author: post.name, // Replace or enhance as needed
+          date: post.created_at.split('T')[0],
+          avatar: post.profile_image || 'https://via.placeholder.com/150', // Placeholder if no avatar
           blogImage: post.image, // image from Cloudinary URL
         }));
 

@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function PostBlog() {
+  const user_id = localStorage.getItem('user_id');
+  // alert("UserId: " + user_id);
   const [form, setForm] = useState({
     title: '',
     image: null,
     content: '',
+    user_id: user_id || '',
   });
 
   const [message, setMessage] = useState('');
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -20,16 +24,23 @@ export default function PostBlog() {
   };
 
   const handleSubmit = async (e) => {
+    if (!form.user_id) {
+      alert("Please sign in to post a blog.");
+      return;
+    }
+
+
     e.preventDefault();
 
     const formData = new FormData();
     formData.append('title', form.title);
     formData.append('content', form.content);
     formData.append('image', form.image);
+    formData.append('user_id', form.user_id);
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/postblog/',
+        'https://myblogbackend-phgi.onrender.com/postblog/',
         formData,
         {
           headers: {

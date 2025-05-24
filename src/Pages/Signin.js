@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function Signin() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -22,7 +23,7 @@ export default function Signin() {
     setMessage('');
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/signin/', {
+      const response = await fetch('https://myblogbackend-phgi.onrender.com/signin/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,6 +35,8 @@ export default function Signin() {
 
       if (response.ok) {
         setMessage(data.message || 'Successfully signed in');
+        localStorage.setItem('user_id', data.user_id);
+        // alert("UserId" + data.user_id);
         navigate('/');
         // TODO: Redirect or store session info if needed
       } else {
