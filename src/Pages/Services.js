@@ -60,7 +60,7 @@ export default function Services() {
       setIsOrdering(true);
       try {
         const response = await axios.post(
-          'http://127.0.0.1:8000/create_order/',
+          'https://myblogbackend-phgi.onrender.com/create_order/',
           { user_id, product_name, quantity, price },
           {
             headers: {
