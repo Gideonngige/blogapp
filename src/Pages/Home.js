@@ -4,9 +4,11 @@ import axios from 'axios';
 
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBlogs = async () => {
+      setLoading(true);
       try {
         const response = await axios.get('https://myblogbackend-phgi.onrender.com/get_blog_posts/');
         const posts = response.data.posts;
@@ -26,6 +28,9 @@ export default function Home() {
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
       }
+      finally {
+        setLoading(false);
+      }
     };
 
     fetchBlogs();
@@ -35,6 +40,10 @@ export default function Home() {
     <Layout>
       <div className="max-w-5xl mx-auto px-4 py-8 font-serif">
         <h2 className="text-3xl font-bold mb-6 text-center">Latest Blogs</h2>
+        {loading && <p className="text-center text-gray-500">Loading blogs...</p>}
+        {!loading && blogs.length === 0 && (
+          <p className="text-center text-gray-500">No blogs available at the moment.</p>
+        )}
 
         {blogs.map((blog) => (
           <div key={blog.id} className="bg-white shadow-md rounded-lg overflow-hidden mb-8">

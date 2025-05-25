@@ -43,6 +43,7 @@ export default function Signup() {
       if (response.ok) {
         alert('Signup successful');
         setForm({ name: '', email: '', password: '', avatar:null });
+        window.location.href = '/signin'; // Redirect to sign-in page
       } else {
         alert(`Signup failed: ${data.message}`);
       }
