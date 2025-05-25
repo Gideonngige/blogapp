@@ -9,6 +9,7 @@ import About from './Pages/About';
 import Contact from './Pages/Contact';
 import PostBlog from './Pages/Postblog'; // optional
 import Services from './Pages/Services';
+import Notifications from './Pages/Notifications'; // optional
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/post-blog" element={<PostBlog />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
       <Footer/>
     </Router>

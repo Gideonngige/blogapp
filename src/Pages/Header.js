@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // You can use Heroicons or Lucide for icons
+import { Menu, X, Bell } from 'lucide-react'; // You can use Heroicons or Lucide for icons
 import { Link } from 'react-router-dom';
+
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,7 @@ export default function Header() {
           <li><Link to="/about" className="hover:text-blue-500">About Us</Link></li>
           <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
           <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
+          <li><Link to="/notifications" className="hover:text-blue-500 relative">Notifications</Link> </li>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -41,6 +43,7 @@ export default function Header() {
           <li><Link to="/about" className="hover:text-blue-500">About</Link></li>
           <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
           <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
+           <li><Link to="/notifications" className="hover:text-blue-500">Notifications</Link></li>
           </nav>
         </div>
       )}

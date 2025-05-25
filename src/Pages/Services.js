@@ -9,7 +9,7 @@ const services = [
     description:
       'We build responsive, fast, and user-friendly websites tailored to your business needs using modern frameworks and tools.',
     price: 'KES 40,000+',
-    rawPrice: 40000, // raw price for sorting or calculations
+    rawPrice: 40000,
   },
   {
     icon: <Smartphone size={32} className="text-green-600" />,
@@ -17,7 +17,7 @@ const services = [
     description:
       'Our mobile apps are designed for performance and usability, delivering seamless experiences on both Android and iOS.',
     price: 'KES 60,000+',
-    rawPrice: 60000, // raw price for sorting or calculations
+    rawPrice: 60000,
   },
   {
     icon: <Brush size={32} className="text-pink-500" />,
@@ -25,7 +25,7 @@ const services = [
     description:
       'From logos to marketing materials, our creative team crafts visual content that resonates with your audience.',
     price: 'KES 5,000+',
-    rawPrice: 5000, // raw price for sorting or calculations
+    rawPrice: 5000,
   },
   {
     icon: <Wrench size={32} className="text-orange-500" />,
@@ -33,7 +33,7 @@ const services = [
     description:
       'Keep your digital systems running smoothly with our ongoing maintenance, updates, and support services.',
     price: 'KES 10,000/month',
-    rawPrice: 10000, // raw price for sorting or calculations
+    rawPrice: 10000,
   },
   {
     icon: <Users size={32} className="text-purple-600" />,
@@ -41,50 +41,49 @@ const services = [
     description:
       'Get expert advice on software strategy, product development, and tech solutions tailored for your goals.',
     price: 'KES 2,000/hour',
-    rawPrice: 2000, // raw price for sorting or calculations
+    rawPrice: 2000,
   },
 ];
 
 export default function Services() {
-    const [isOrdering, setIsOrdering] = React.useState(false);
+  const [orderingIndex, setOrderingIndex] = React.useState(null);
 
-    const handleOrderServices = async (e, product_name, price) => {
-      e.preventDefault();
-      const quantity = 1; // Default quantity, can be modified later
-    
-      const user_id = localStorage.getItem('user_id');
-      if (!user_id) {
-        alert("Please sign in to send a message.");
-        return;
-      }
-      setIsOrdering(true);
-      try {
-        const response = await axios.post(
-          'https://myblogbackend-phgi.onrender.com/create_order/',
-          { user_id, product_name, quantity, price },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-    
-        if (response.status === 200) {
-          console.log("Order placed successfully:", response.data);
-          alert("Order placed successfully!");
-        } else {
-          throw new Error(response.data.message || "Failed to send message");
+  const handleOrderServices = async (e, index, product_name, price) => {
+    e.preventDefault();
+    const quantity = 1;
+    const user_id = localStorage.getItem('user_id');
+
+    if (!user_id) {
+      alert("Please sign in to send a message.");
+      return;
+    }
+
+    setOrderingIndex(index);
+
+    try {
+      const response = await axios.post(
+        'https://myblogbackend-phgi.onrender.com/create_order/',
+        { user_id, product_name, quantity, price },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
-      } catch (error) {
-        console.error("Error ordering service:", error);
-        alert("Failed to order service. Please try again later.");
-      }
-      finally {
-        setIsOrdering(false);
-      }
-    };
-    
+      );
 
+      if (response.status === 200) {
+        console.log("Order placed successfully:", response.data);
+        alert("Order placed successfully!");
+      } else {
+        throw new Error(response.data.message || "Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error ordering service:", error);
+      alert("Failed to order service. Please try again later.");
+    } finally {
+      setOrderingIndex(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white text-gray-800 py-12 px-4">
@@ -110,10 +109,11 @@ export default function Services() {
               </div>
 
               <button
-                onClick={(e) =>handleOrderServices(e, service.title, service.rawPrice)} // Replace with actual logic
+                onClick={(e) => handleOrderServices(e, index, service.title, service.rawPrice)}
                 className="mt-auto bg-blue-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-blue-700 transition"
+                disabled={orderingIndex === index}
               >
-                Order Now
+                {orderingIndex === index ? "Ordering..." : "Order Now"}
               </button>
             </div>
           ))}
