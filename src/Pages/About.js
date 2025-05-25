@@ -52,6 +52,16 @@ export default function About() {
               </p>
             </div>
           </div>
+          <div className="mt-8 text-center">
+  <a
+    href="https://paystack.shop/pay/1uy0h8i1yw" // Replace this
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-blue-500 transition"
+  >
+    ☕ Buy me a coffee
+  </a>
+</div>
         </div>
 
         <div className="mt-12 text-center">
