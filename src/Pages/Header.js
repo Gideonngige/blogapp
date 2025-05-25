@@ -16,8 +16,9 @@ export default function Header() {
           <li><Link to="/signin" className="hover:text-blue-500">SignIn</Link></li>
           <li><Link to="/post-blog" className="hover:text-blue-500">Post Blog</Link></li>
           <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
-          <li><Link to="/about" className="hover:text-blue-500">About</Link></li>
+          <li><Link to="/about" className="hover:text-blue-500">About Us</Link></li>
           <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
+          <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -39,6 +40,7 @@ export default function Header() {
           <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
           <li><Link to="/about" className="hover:text-blue-500">About</Link></li>
           <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
+          <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
           </nav>
         </div>
       )}

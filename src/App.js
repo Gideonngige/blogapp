@@ -8,6 +8,7 @@ import Signin from './Pages/Signin'; // optional
 import About from './Pages/About';
 import Contact from './Pages/Contact';
 import PostBlog from './Pages/Postblog'; // optional
+import Services from './Pages/Services';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/post-blog" element={<PostBlog />} />
+        <Route path="/services" element={<Services />} />
       </Routes>
       <Footer/>
     </Router>
