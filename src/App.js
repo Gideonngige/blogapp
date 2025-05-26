@@ -10,6 +10,10 @@ import Contact from './Pages/Contact';
 import PostBlog from './Pages/Postblog'; // optional
 import Services from './Pages/Services';
 import Notifications from './Pages/Notifications'; // optional
+import Shop from './Pages/Shop'; // optional
+import AddProduct from './Pages/AddProduct'; // optional
+import TermsOfService from './Pages/TermsOfService';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
 
 function App() {
   return (
@@ -23,7 +27,12 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/post-blog" element={<PostBlog />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        {/* Add more routes as needed */}
       </Routes>
       <Footer/>
     </Router>

@@ -10,12 +10,12 @@ export default function Footer() {
           <nav>
             <ul className="flex flex-col md:flex-row items-center gap-4 text-sm">
               <li>
-                <a href="/privacy" className="hover:underline hover:text-gray-300">
+                <a href="/privacy-policy" className="hover:underline hover:text-gray-300">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="/terms" className="hover:underline hover:text-gray-300">
+                <a href="/terms-of-service" className="hover:underline hover:text-gray-300">
                   Terms of Service
                 </a>
               </li>
