@@ -18,9 +18,10 @@ export default function Header() {
           <li><Link to="/post-blog" className="hover:text-blue-500">Post Blog</Link></li>
           <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
           <li><Link to="/about" className="hover:text-blue-500">About Us</Link></li>
-          <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
+          <li><Link to="/contact" className="hover:text-blue-500">Contact Us</Link></li>
           <li><Link to="/shop" className="hover:text-blue-500">Shop</Link></li>
           <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
+          <li><Link to="/orders" className="hover:text-blue-500">My Orders</Link></li>
           <li><Link to="/notifications" className="hover:text-blue-500 relative">Notifications</Link> </li>
         </nav>
 
@@ -41,10 +42,11 @@ export default function Header() {
           <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
           <li><Link to="/signin" className="hover:text-blue-500">SignIn</Link></li>
           <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
-          <li><Link to="/about" className="hover:text-blue-500">About</Link></li>
-          <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
+          <li><Link to="/about" className="hover:text-blue-500">About Us</Link></li>
+          <li><Link to="/contact" className="hover:text-blue-500">Contact Us</Link></li>
           <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
           <li><Link to="/shop" className="hover:text-blue-500">Shop</Link></li>
+           <li><Link to="/orders" className="hover:text-blue-500">My Orders</Link></li>
            <li><Link to="/notifications" className="hover:text-blue-500">Notifications</Link></li>
           </nav>
         </div>

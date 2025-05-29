@@ -14,6 +14,10 @@ import Shop from './Pages/Shop'; // optional
 import AddProduct from './Pages/AddProduct'; // optional
 import TermsOfService from './Pages/TermsOfService';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
+import Products from './Pages/Products';
+import AddStock from './Pages/AddStock';
+import Orders from './Pages/Orders';
+import DeliveryOrders from './Pages/DeliveryOrders';
 
 function App() {
   return (
@@ -32,6 +36,10 @@ function App() {
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/add-stock" element={<AddStock />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/delivery-orders" element={<DeliveryOrders />} />
         {/* Add more routes as needed */}
       </Routes>
       <Footer/>

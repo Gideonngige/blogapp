@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function Signin() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -36,9 +35,23 @@ export default function Signin() {
       if (response.ok) {
         setMessage(data.message || 'Successfully signed in');
         localStorage.setItem('user_id', data.user_id);
-        // alert("UserId" + data.user_id);
-        navigate('/');
-        // TODO: Redirect or store session info if needed
+        localStorage.setItem('email', form.email);
+        navigate('/'); // Redirect to home page after successful sign-in
+        if(form.email === "deliveryperson@gtech.com"){
+          localStorage.setItem('user_id', data.user_id);
+          localStorage.setItem('email', form.email);
+          navigate('/delivery-orders'); // Redirect to delivery orders page for delivery person
+        }
+        else if(form.email === "admin@gtech.com"){
+          localStorage.setItem('user_id', data.user_id);
+          localStorage.setItem('email', form.email);
+          navigate('/products'); // Redirect to admin page for super admin
+        }
+        else{
+          localStorage.setItem('user_id', data.user_id);
+          localStorage.setItem('email', form.email);
+          navigate('/'); // Redirect to home page for regular users
+        }
       } else {
         setMessage(data.message || 'Sign in failed');
       }

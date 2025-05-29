@@ -38,7 +38,8 @@ const AddProduct = () => {
     for (let key in formData) {
       data.append(key, formData[key]);
     }
-
+    const email = localStorage.getItem('email');
+    if(email === "admin@gtech.com"){
     try {
       const res = await axios.post('https://myblogbackend-phgi.onrender.com/add_product/', data, {
         headers: {
@@ -60,6 +61,11 @@ const AddProduct = () => {
       setSuccess('');
       console.error(err);
     }
+  }
+  else{
+    setError('You do not have permission to add products.');
+    setSuccess('');
+  }
   };
 
   return (

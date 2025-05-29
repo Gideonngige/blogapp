@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 export default function Signup() {
   const [form, setForm] = useState({
     name: '',
+    phonenumber: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -28,6 +29,7 @@ export default function Signup() {
 
     const formData = new FormData();
     formData.append('name', form.name);
+    formData.append('phonenumber', form.phonenumber);
     formData.append('email', form.email);
     formData.append('password', form.password);
     formData.append('avatar', form.avatar);
@@ -66,6 +68,19 @@ export default function Signup() {
               name="name"
               required
               onChange={handleChange}
+              placeholder='eg. John Doe'
+              className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Phone number</label>
+            <input
+              type="tel"
+              name="phonenumber"
+              required
+              onChange={handleChange}
+              maxLength={10}
+              placeholder='eg. 0712345678'
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -76,6 +91,7 @@ export default function Signup() {
               name="email"
               required
               onChange={handleChange}
+              placeholder='eg. johndoe@example.com'
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
