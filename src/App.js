@@ -18,6 +18,7 @@ import Products from './Pages/Products';
 import AddStock from './Pages/AddStock';
 import Orders from './Pages/Orders';
 import DeliveryOrders from './Pages/DeliveryOrders';
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/add-stock" element={<AddStock />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/delivery-orders" element={<DeliveryOrders />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         {/* Add more routes as needed */}
       </Routes>
       <Footer/>

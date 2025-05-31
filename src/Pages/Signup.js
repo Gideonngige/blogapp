@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Signup() {
+  const [isSigningUp, setIsSigningUp] = useState(false);
   const [form, setForm] = useState({
     name: '',
     phonenumber: '',
@@ -35,6 +36,7 @@ export default function Signup() {
     formData.append('avatar', form.avatar);
 
     try {
+      setIsSigningUp(true);
       const response = await fetch('https://myblogbackend-phgi.onrender.com/signup/', {
         method: 'POST',
         body: formData,
@@ -52,6 +54,9 @@ export default function Signup() {
     } catch (error) {
       console.error('Error:', error);
       alert('Something went wrong. Try again.');
+    }
+    finally {
+      setIsSigningUp(false);
     }
   };
 
@@ -134,7 +139,7 @@ export default function Signup() {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
-            Sign Up
+            {isSigningUp ? 'Signing Up...' : 'Sign Up'}
           </button>
         </form>
 

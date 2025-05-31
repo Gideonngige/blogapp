@@ -8,19 +8,29 @@ export default function NotificationsPage() {
 
   const userId = localStorage.getItem('user_id');
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`https://myblogbackend-phgi.onrender.com/get_user_notifications/${userId}/`);
-        setNotifications(response.data || []);
-      } catch (error) {
-        console.error('Error fetching notifications:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchNotifications = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`https://myblogbackend-phgi.onrender.com/get_user_notifications/${userId}/`);
+      setNotifications(response.data || []);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  const markAsRead = async (notifId) => {
+    try {
+      await axios.get(`https://myblogbackend-phgi.onrender.com/mark_notification_as_read/${notifId}/`);
+      // Refresh notifications after marking as read
+      fetchNotifications();
+    } catch (error) {
+      console.error('Error marking as read:', error);
+    }
+  };
+
+  useEffect(() => {
     if (userId) {
       fetchNotifications();
     } else {
@@ -52,12 +62,23 @@ export default function NotificationsPage() {
             {notifications.map((notif) => (
               <li
                 key={notif.id}
-                className="bg-blue-50 border border-blue-100 p-4 rounded-xl shadow-sm"
+                className={`p-4 rounded-xl shadow-sm border ${
+                  notif.is_read ? 'bg-white border-gray-200' : 'bg-blue-50 border-blue-100'
+                }`}
               >
                 <p className="text-gray-800">{notif.message}</p>
                 <p className="text-xs text-gray-500 mt-1">
                   {new Date(notif.created_at).toLocaleString()}
                 </p>
+
+                {!notif.is_read && (
+                  <button
+                    onClick={() => markAsRead(notif.id)}
+                    className="mt-2 text-sm text-blue-600 hover:underline"
+                  >
+                    Mark as read
+                  </button>
+                )}
               </li>
             ))}
           </ul>

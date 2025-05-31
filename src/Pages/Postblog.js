@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export default function PostBlog() {
   const user_id = localStorage.getItem('user_id');
+  const [isposting, setIsPosting] = useState(false);
   // alert("UserId: " + user_id);
   const [form, setForm] = useState({
     title: '',
@@ -37,7 +38,7 @@ export default function PostBlog() {
     formData.append('content', form.content);
     formData.append('image', form.image);
     formData.append('user_id', form.user_id);
-
+    setIsPosting(true);
     try {
       const response = await axios.post(
         'https://myblogbackend-phgi.onrender.com/postblog/',
@@ -60,6 +61,9 @@ export default function PostBlog() {
     } catch (error) {
       console.error(error);
       setMessage('Failed to post blog. Check console for errors.');
+    }
+    finally {
+      setIsPosting(false);
     }
   };
 
@@ -108,7 +112,7 @@ export default function PostBlog() {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
-            Post Blog
+            {isposting ? 'Posting...' : 'Post Blog'}
           </button>
         </form>
 

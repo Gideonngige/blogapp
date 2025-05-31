@@ -13,6 +13,7 @@ const AddProduct = () => {
 
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [isAdding, setIsAdding] = useState(false);
 
   const categories = [
     { value: 'phone', label: 'Phone' },
@@ -40,6 +41,7 @@ const AddProduct = () => {
     }
     const email = localStorage.getItem('email');
     if(email === "admin@gtech.com"){
+      setIsAdding(true);
     try {
       const res = await axios.post('https://myblogbackend-phgi.onrender.com/add_product/', data, {
         headers: {
@@ -60,6 +62,9 @@ const AddProduct = () => {
       setError('Failed to add product. Check console for details.');
       setSuccess('');
       console.error(err);
+    }
+    finally {
+      setIsAdding(false);
     }
   }
   else{
@@ -142,7 +147,7 @@ const AddProduct = () => {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
-          Add Product
+          {isAdding ? 'Adding...' : 'Add Product'}
         </button>
       </form>
     </div>
