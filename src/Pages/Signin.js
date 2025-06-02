@@ -45,7 +45,7 @@ export default function Signin() {
         else if(form.email === "admin@gtech.com"){
           localStorage.setItem('user_id', data.user_id);
           localStorage.setItem('email', form.email);
-          navigate('/products'); // Redirect to admin page for super admin
+          navigate('/dashboard'); // Redirect to admin page for super admin
         }
         else{
           localStorage.setItem('user_id', data.user_id);
@@ -98,6 +98,10 @@ export default function Signin() {
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+          {/* forgot your paswword */}
+          <div className="text-right text-sm">
+            <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot your password?</a>
+            </div>
 
           <button
             type="submit"

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Layout from './Layout';
 import axios from 'axios';
 
@@ -67,13 +68,23 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
-              <p className="text-gray-700">{blog.content}</p>
-              <button
-                onClick={() => handleLike(blog.id)}
-                className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors mt-4"
-              >
-                👍 {blog.likes_count} Likes
-              </button>
+              <p className="text-gray-700">
+                {blog.content.length > 200 ? `${blog.content.slice(0, 200)}...` : blog.content}
+              </p>
+              <div className="flex justify-between items-center mt-4">
+                <button
+                  onClick={() => handleLike(blog.id)}
+                  className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                >
+                  👍 {blog.likes_count} Likes
+                </button>
+                <Link
+                  to={`/blog/${blog.id}`}
+                  className="text-blue-600 font-medium hover:underline"
+                >
+                  Read More →
+                </Link>
+              </div>
             </div>
           </div>
         ))}

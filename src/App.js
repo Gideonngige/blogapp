@@ -19,6 +19,8 @@ import AddStock from './Pages/AddStock';
 import Orders from './Pages/Orders';
 import DeliveryOrders from './Pages/DeliveryOrders';
 import Dashboard from './Pages/Dashboard';
+import ForgotPassword from './Pages/ForgotPassword';
+import BlogDetail from './Pages/BlogDetail'; // optional
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/delivery-orders" element={<DeliveryOrders />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
         {/* Add more routes as needed */}
       </Routes>
       <Footer/>

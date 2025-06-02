@@ -11,12 +11,13 @@ const Shop = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [paid, setPaid] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [cart, setCart] = useState([]);
+  const [checkoutPaid, setCheckoutPaid] = useState(false);
 
-  // Handle payment
+  const user_id = localStorage.getItem('user_id');
+
+  // Handle single product payment
   const payProduct = async (product_id, product_name, price) => {
-    const user_id = localStorage.getItem('user_id');
-    const quantity = 1;
-
     if (!user_id) {
       alert("Please sign in to buy a product.");
       return;
@@ -25,24 +26,44 @@ const Shop = () => {
     try {
       const response = await axios.post(
         'https://myblogbackend-phgi.onrender.com/create_product_order/',
-        { product_id, user_id, product_name, quantity, price },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+        { product_id, user_id, product_name, quantity: 1, price },
+        { headers: { 'Content-Type': 'application/json' } }
       );
 
       if (response.status === 200) {
         console.log("Order placed successfully:", response.data);
         setPaid(true);
         alert("Order placed successfully!");
-      } else {
-        throw new Error(response.data.message || "Failed to send message");
       }
     } catch (error) {
       console.error("Error ordering product:", error);
       alert("Failed to order product. Please try again later.");
+    }
+  };
+
+  // Handle bulk checkout
+  const handleCheckout = async () => {
+    if (!user_id) return alert("Please log in to checkout.");
+    try {
+      const response = await axios.post(
+        'https://myblogbackend-phgi.onrender.com/create_bulk_order/',
+        {
+          user_id,
+          products: cart.map(item => ({
+            product_id: item.id,
+            product_name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      alert("Bulk order placed successfully!");
+      setCart([]);
+      setCheckoutPaid(false);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to checkout.");
     }
   };
 
@@ -51,7 +72,6 @@ const Shop = () => {
     const fetchProducts = async () => {
       const email = localStorage.getItem('email');
       if (email) setEmail(email);
-
       try {
         const res = await axios.get('https://myblogbackend-phgi.onrender.com/get_products/');
         setProducts(res.data.products);
@@ -62,17 +82,31 @@ const Shop = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
+  // Add item to cart
+  const addToCart = (product) => {
+    setCart(prev => {
+      const exists = prev.find(item => item.id === product.id);
+      if (exists) {
+        return prev.map(item =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
+
+  // Total cart price
+  const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  // Props for single item Paystack
   const componentProps = selectedProduct
     ? {
         email: email,
         amount: selectedProduct.price * 100,
-        metadata: {
-          product_name: selectedProduct.name,
-        },
+        metadata: { product_name: selectedProduct.name },
         publicKey,
         currency: 'KES',
         text: 'Pay Now',
@@ -82,34 +116,53 @@ const Shop = () => {
       }
     : {};
 
+  // Props for bulk Paystack
+  const bulkPaystackProps = {
+    email: email,
+    amount: totalAmount * 100,
+    publicKey,
+    text: 'Pay for All',
+    currency: 'KES',
+    metadata: {
+      cart: cart.map(item => ({
+        product_name: item.name,
+        quantity: item.quantity,
+      })),
+    },
+    onSuccess: () => {
+      setCheckoutPaid(true);
+      handleCheckout(); // Call backend only if payment succeeds
+    },
+    onClose: () => alert("Payment cancelled."),
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold mb-8">G-Tech Shop</h2>
 
-      {/* Search Bar */}
+      {/* Search */}
       <div className="mb-6">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search products..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-blue-600 rounded-lg px-4 py-2"
         />
       </div>
 
-      {loading && <p className="text-gray-600">Loading products...</p>}
+      {/* Loading/Error */}
+      {loading && <p>Loading products...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
+      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products
           .filter((product) =>
             product.name.toLowerCase().includes(searchTerm.toLowerCase())
           )
           .map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-xl shadow p-4 hover:shadow-lg transition duration-200"
-            >
+            <div key={product.id} className="bg-white rounded-xl shadow p-4">
               <img
                 src={product.image}
                 alt={product.name}
@@ -122,30 +175,53 @@ const Shop = () => {
               <button
                 onClick={() => {
                   setSelectedProduct(product);
-                  setPaid(false); // Reset paid if user selects new product
+                  setPaid(false);
                 }}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full"
               >
                 Buy Now
+              </button>
+              <button
+                onClick={() => addToCart(product)}
+                className="mt-2 bg-blue-600 text-white px-4 py-2 rounded w-full"
+              >
+                Add to Cart
               </button>
             </div>
           ))}
 
-        {/* No match found */}
         {!loading &&
           products.filter((product) =>
             product.name.toLowerCase().includes(searchTerm.toLowerCase())
           ).length === 0 && (
-            <p className="text-center text-gray-500 col-span-full">
+            <p className="col-span-full text-center text-gray-500">
               No products found.
             </p>
           )}
       </div>
 
-      {/* Floating Pay Now Button */}
+      {/* Floating Paystack for Single */}
       {selectedProduct && !paid && (
         <div className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-4 rounded-lg shadow-lg">
           <PaystackButton {...componentProps} />
+        </div>
+      )}
+
+      {/* Cart Summary + Bulk Pay */}
+      {cart.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 bg-white p-4 border-t shadow-lg z-50">
+          <h4 className="font-bold mb-2">Cart Summary</h4>
+          <ul>
+            {cart.map(item => (
+              <li key={item.id}>
+                {item.name} x {item.quantity} = KES {item.price * item.quantity}
+              </li>
+            ))}
+          </ul>
+          <p className="font-semibold mt-2">
+            Total: KES {totalAmount}
+          </p>
+          <PaystackButton {...bulkPaystackProps} className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" />
         </div>
       )}
     </div>

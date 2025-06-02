@@ -39,15 +39,15 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden bg-blue-500 px-4 pb-4">
           <nav className="flex flex-col space-y-2">
-          <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
-          <li><Link to="/signin" className="hover:text-blue-500">SignIn</Link></li>
-          <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
-          <li><Link to="/about" className="hover:text-blue-500">About Us</Link></li>
-          <li><Link to="/contact" className="hover:text-blue-500">Contact Us</Link></li>
-          <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
-          <li><Link to="/shop" className="hover:text-blue-500">Shop</Link></li>
-           <li><Link to="/orders" className="hover:text-blue-500">My Orders</Link></li>
-           <li><Link to="/notifications" className="hover:text-blue-500">Notifications</Link></li>
+          <li><Link to="/" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Home</Link></li>
+      <li><Link to="/signin" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>SignIn</Link></li>
+      <li><Link to="/signup" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>SignUp</Link></li>
+      <li><Link to="/about" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>About Us</Link></li>
+      <li><Link to="/contact" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Contact Us</Link></li>
+      <li><Link to="/services" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Our Services</Link></li>
+      <li><Link to="/shop" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Shop</Link></li>
+      <li><Link to="/orders" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>My Orders</Link></li>
+      <li><Link to="/notifications" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Notifications</Link></li>
           </nav>
         </div>
       )}

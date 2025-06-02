@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // <-- Import useNavigate
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const email = localStorage.getItem('email');
+  const navigate = useNavigate();
+
+  // Redirect if not admin
+  useEffect(() => {
+    if (email !== "admin@gtech.com") {
+      navigate('/'); // or navigate('/login') if you want to go to login page
+    }
+  }, [email, navigate]);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -61,6 +71,14 @@ const Dashboard = () => {
             <Bar dataKey="amount" fill="#3B82F6" />
           </BarChart>
         </ResponsiveContainer>
+      </div>
+
+      <div className="bg-white p-6 rounded-lg shadow-md mt-8">
+        <button
+          onClick={() => window.location.href = '/products'}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Products
+        </button>
       </div>
     </div>
   );
