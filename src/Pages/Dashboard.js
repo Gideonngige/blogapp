@@ -6,6 +6,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loading2, setLoading2] = useState(true);
+  const [messages, setMessages] = useState([]);
   const email = localStorage.getItem('email');
   const navigate = useNavigate();
 
@@ -31,6 +33,24 @@ const Dashboard = () => {
     fetchStats();
   }, []);
 
+  // function to fetch messages 
+  useEffect(() => {
+    const fetchMessages = async () => {
+      setLoading2(true);
+      try {
+        const response = await axios.get('https://myblogbackend-phgi.onrender.com/get_messages/');
+        setMessages(response.data);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      } finally {
+        setLoading2(false);
+      }
+    };
+
+    fetchMessages();
+  }, []);
+  // end of function to fetch messages
+
   if (loading) return <p className="text-center text-gray-500">Loading dashboard...</p>;
 
   return (
@@ -44,6 +64,7 @@ const Dashboard = () => {
         <StatCard title="Orders" value={stats.total_orders} />
         <StatCard title="Products" value={stats.total_products} />
         <StatCard title="Notifications" value={stats.total_notifications} />
+        <StatCard title="User Feedbacks" value={stats.total_messages} />
       </div>
 
       {/* Sales Summary */}
@@ -80,6 +101,17 @@ const Dashboard = () => {
           Products
         </button>
       </div>
+
+      <h2 className="text-xl font-semibold mb-4 mt-4">User Messages</h2>
+      {messages.map((item, index) => (
+        <div key={index} className="p-4 mb-3 border rounded shadow">
+          <h3 className="font-bold">{item.name}</h3>
+          <p className="text-gray-700">{item.message}</p>
+          <small className="text-gray-500">
+            {new Date(item.created_at).toLocaleString()}
+          </small>
+        </div>
+      ))}
     </div>
   );
 };

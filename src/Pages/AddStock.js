@@ -28,7 +28,8 @@ const AddStock = () => {
     }));
   };
 
-  const handleAddStock = async (productId) => {
+  const handleAddStock = async (e, productId) => {
+    e.preventDefault();
     const additionalStock = parseInt(stockToAdd[productId]);
     if (isNaN(additionalStock) || additionalStock < 0) {
       setMessage('Please enter a valid, non-negative stock value.');
@@ -43,6 +44,7 @@ const AddStock = () => {
 
       if (response.ok) {
         setMessage(`Stock updated for Product ID ${productId}: new stock = ${data.new_stock}`);
+        setStockToAdd({});
         // Refresh the products list
         setProducts((prev) =>
           prev.map((p) =>
@@ -96,7 +98,7 @@ const AddStock = () => {
               </td>
               <td className="p-2 border">
                 <button
-                  onClick={() => handleAddStock(product.id)}
+                  onClick={(e) => handleAddStock(e,product.id)}
                   className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
                 >
                   Update Stock

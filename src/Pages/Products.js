@@ -36,7 +36,7 @@ const Products = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Product List (Admin View)</h1>
+      <h1 className="text-2xl font-bold mb-4">Product List</h1>
 
       {error && <p className="text-red-600">{error}</p>}
 
