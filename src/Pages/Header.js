@@ -9,11 +9,12 @@ export default function Header() {
   return (
     <header className="bg-blue-600 text-white shadow-md font-serif sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <h1 className="text-xl font-bold">G-Blogs</h1>
+        <h1 className="text-xl font-bold">G-Tech</h1>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6">
           <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
+          <li><Link to="/blog" className="hover:text-blue-500">Blog</Link></li>
           <li><Link to="/signin" className="hover:text-blue-500">SignIn</Link></li>
           <li><Link to="/post-blog" className="hover:text-blue-500">Post Blog</Link></li>
           <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
