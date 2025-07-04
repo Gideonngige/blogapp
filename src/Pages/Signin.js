@@ -64,9 +64,9 @@ export default function Signin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 font-serif">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2><hr className='mb-10'/>
 
         {message && (
           <div className="mb-4 text-center text-sm text-red-600">
@@ -106,7 +106,7 @@ export default function Signin() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-2 rounded text-white transition ${loading ? 'bg-gray-500' : 'bg-blue-600 hover:bg-blue-700'}`}
+            className={`w-full py-2 rounded text-white transition ${loading ? 'bg-blue-600' : 'bg-blue-600 hover:bg-blue-700'}`}
           >
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
