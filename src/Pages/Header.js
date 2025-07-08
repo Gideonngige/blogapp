@@ -14,7 +14,7 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6">
           <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
-          <li><Link to="/blog" className="hover:text-blue-500">Blog</Link></li>
+          <li><Link to="/blog" className="hover:text-blue-500">Blogs</Link></li>
           <li><Link to="/signin" className="hover:text-blue-500">SignIn</Link></li>
           <li><Link to="/post-blog" className="hover:text-blue-500">Post Blog</Link></li>
           <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
@@ -41,6 +41,7 @@ export default function Header() {
         <div className="md:hidden bg-blue-500 px-4 pb-4">
           <nav className="flex flex-col space-y-2">
           <li><Link to="/" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Home</Link></li>
+        <li><Link to="/blog" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Blogs</Link></li>
       <li><Link to="/signin" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>SignIn</Link></li>
       <li><Link to="/signup" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>SignUp</Link></li>
       <li><Link to="/about" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>About Us</Link></li>

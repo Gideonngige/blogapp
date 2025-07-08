@@ -16,11 +16,12 @@ const AddProduct = () => {
   const [isAdding, setIsAdding] = useState(false);
 
   const categories = [
-    { value: 'phone', label: 'Phone' },
-    { value: 'earphone', label: 'Earphone' },
-    { value: 'headphone', label: 'Headphone' },
-    { value: 'charger', label: 'Charger' },
-    { value: 'other', label: 'Other' },
+    { value: 'Accessories', label: 'Accessories' },
+    { value: 'Phones', label: 'Phones' },
+    { value: 'Laptops', label: 'Laptops' },
+    { value: 'Watches', label: 'Watches' },
+    { value: 'TVs', label: 'TVs' },
+    { value: 'Radios', label: 'Radios' },
   ];
 
   const handleChange = (e) => {

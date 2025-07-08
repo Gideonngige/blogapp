@@ -13,23 +13,19 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState([]);
   const [checkoutPaid, setCheckoutPaid] = useState(false);
-
   const user_id = localStorage.getItem('user_id');
 
-  // Handle single product payment
   const payProduct = async (product_id, product_name, price) => {
     if (!user_id) {
       alert("Please sign in to buy a product.");
       return;
     }
-
     try {
       const response = await axios.post(
         'https://myblogbackend-phgi.onrender.com/create_product_order/',
         { product_id, user_id, product_name, quantity: 1, price },
         { headers: { 'Content-Type': 'application/json' } }
       );
-
       if (response.status === 200) {
         console.log("Order placed successfully:", response.data);
         setPaid(true);
@@ -41,7 +37,6 @@ const Shop = () => {
     }
   };
 
-  // Handle bulk checkout
   const handleCheckout = async () => {
     if (!user_id) return alert("Please log in to checkout.");
     try {
@@ -67,7 +62,6 @@ const Shop = () => {
     }
   };
 
-  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       const email = localStorage.getItem('email');
@@ -85,7 +79,6 @@ const Shop = () => {
     fetchProducts();
   }, []);
 
-  // Add item to cart
   const addToCart = (product) => {
     setCart(prev => {
       const exists = prev.find(item => item.id === product.id);
@@ -98,10 +91,8 @@ const Shop = () => {
     });
   };
 
-  // Total cart price
   const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Props for single item Paystack
   const componentProps = selectedProduct
     ? {
         email: email,
@@ -110,13 +101,11 @@ const Shop = () => {
         publicKey,
         currency: 'KES',
         text: 'Pay Now',
-        onSuccess: () =>
-          payProduct(selectedProduct.id, selectedProduct.name, selectedProduct.price),
+        onSuccess: () => payProduct(selectedProduct.id, selectedProduct.name, selectedProduct.price),
         onClose: () => alert('Payment cancelled.'),
       }
     : {};
 
-  // Props for bulk Paystack
   const bulkPaystackProps = {
     email: email,
     amount: totalAmount * 100,
@@ -131,16 +120,25 @@ const Shop = () => {
     },
     onSuccess: () => {
       setCheckoutPaid(true);
-      handleCheckout(); // Call backend only if payment succeeds
+      handleCheckout();
     },
     onClose: () => alert("Payment cancelled."),
   };
+
+  // Group products by category
+  const groupedProducts = products.reduce((groups, product) => {
+    const category = product.category || "Others";
+    if (!groups[category]) {
+      groups[category] = [];
+    }
+    groups[category].push(product);
+    return groups;
+  }, {});
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold mb-8">G-Tech Shop</h2>
 
-      {/* Search */}
       <div className="mb-6">
         <input
           type="text"
@@ -151,63 +149,64 @@ const Shop = () => {
         />
       </div>
 
-      {/* Loading/Error */}
       {loading && <p>Loading products...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products
-          .filter((product) =>
-            product.name.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .map((product) => (
-            <div key={product.id} className="bg-white rounded-xl shadow p-4">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover rounded"
-              />
-              <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
-              <p className="text-blue-600 font-bold mt-2">
-                KES {Number(product.price).toLocaleString()}
+      {Object.keys(groupedProducts).map((category) => (
+        <div key={category} className="mb-10">
+          <h3 className="text-2xl font-bold mb-4">{category}</h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {groupedProducts[category]
+              .filter((product) =>
+                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((product) => (
+                <div key={product.id} className="bg-white rounded-xl shadow p-4">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-48 object-cover rounded"
+                  />
+                  <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
+                  <p className="text-blue-600 font-bold mt-2">
+                    KES {Number(product.price).toLocaleString()}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSelectedProduct(product);
+                      setPaid(false);
+                    }}
+                    className="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full"
+                  >
+                    Buy Now
+                  </button>
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="mt-2 bg-blue-600 text-white px-4 py-2 rounded w-full"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              ))}
+
+            {groupedProducts[category].filter((product) =>
+              product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            ).length === 0 && (
+              <p className="col-span-full text-center text-gray-500">
+                No products found in this category.
               </p>
-              <button
-                onClick={() => {
-                  setSelectedProduct(product);
-                  setPaid(false);
-                }}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full"
-              >
-                Buy Now
-              </button>
-              <button
-                onClick={() => addToCart(product)}
-                className="mt-2 bg-blue-600 text-white px-4 py-2 rounded w-full"
-              >
-                Add to Cart
-              </button>
-            </div>
-          ))}
+            )}
+          </div>
+        </div>
+      ))}
 
-        {!loading &&
-          products.filter((product) =>
-            product.name.toLowerCase().includes(searchTerm.toLowerCase())
-          ).length === 0 && (
-            <p className="col-span-full text-center text-gray-500">
-              No products found.
-            </p>
-          )}
-      </div>
-
-      {/* Floating Paystack for Single */}
       {selectedProduct && !paid && (
         <div className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-4 rounded-lg shadow-lg">
           <PaystackButton {...componentProps} />
         </div>
       )}
 
-      {/* Cart Summary + Bulk Pay */}
       {cart.length > 0 && (
         <div className="fixed bottom-0 left-0 right-0 bg-white p-4 border-t shadow-lg z-50">
           <h4 className="font-bold mb-2">Cart Summary</h4>
