@@ -44,7 +44,7 @@ export default function BlogDetail() {
   if (!blog) return <Layout><p className="text-center">Blog not found.</p></Layout>;
 
   return (
-    <Layout>
+    
       <div key={blog.id} className="bg-white shadow-md rounded-lg overflow-hidden m-8">
             <img src={blog.image} alt="Blog visual" className="w-full h-60 object-cover" />
             <div className="p-6">
@@ -52,7 +52,7 @@ export default function BlogDetail() {
                 <img src={blog.profile_image} alt={blog.name} className="w-12 h-12 rounded-full" />
                 <div>
                   <p className="font-semibold font-serif">{blog.name}</p>
-                  <p className="text-sm text-gray-500">{blog.created_at.split('T')[0]}</p>
+                  <p className="text-sm text-gray-500">{new Date(blog.created_at).toLocaleString()}</p>
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-2 font-serif">{blog.title}</h3>
@@ -69,6 +69,6 @@ export default function BlogDetail() {
               </div>
             </div>
           </div>
-    </Layout>
+   
   );
 }

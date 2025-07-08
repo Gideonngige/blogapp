@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Layout from './Layout';
 import axios from 'axios';
 
 export default function Home() {
@@ -48,8 +47,8 @@ export default function Home() {
   };
 
   return (
-    <Layout>
-      <div className="max-w-5xl mx-auto px-4 py-8 font-serif">
+    
+      <div className="max-w-5xl mx-auto px-4 py-8">
         <h2 className="text-3xl font-bold mb-6 text-center">Latest Blogs</h2>
         {loading && <p className="text-center text-gray-500">Loading blogs...</p>}
         {!loading && blogs.length === 0 && (
@@ -64,7 +63,7 @@ export default function Home() {
                 <img src={blog.avatar} alt={blog.author} className="w-12 h-12 rounded-full" />
                 <div>
                   <p className="font-semibold">{blog.author}</p>
-                  <p className="text-sm text-gray-500">{blog.date}</p>
+                  <p className="text-sm text-gray-500">{new Date(blog.date).toLocaleString()}</p>
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
@@ -89,6 +88,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-    </Layout>
+    
   );
 }
