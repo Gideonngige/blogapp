@@ -116,6 +116,7 @@ export default function Signup() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
+              placeholder='Your password'
               type="password"
               name="password"
               required
@@ -127,6 +128,7 @@ export default function Signup() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
             <input
+              placeholder='Confirm your password'
               type="password"
               name="confirmPassword"
               required

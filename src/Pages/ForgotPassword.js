@@ -42,6 +42,7 @@ export default function ForgotPassword() {
             <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
             <input
+                placeholder='e.g johndoe@example.com'
                 type="email"
                 value={email}
                 onChange={handleChange}

@@ -78,6 +78,7 @@ export default function Signin() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
+              placeholder='e.g johndoe@example.com'
               type="email"
               name="email"
               required
@@ -90,6 +91,7 @@ export default function Signin() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
+              placeholder='Your password'
               type="password"
               name="password"
               required
