@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 export default function Signin() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
-
+  const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // 👈 new state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,38 +18,22 @@ export default function Signin() {
     e.preventDefault();
     setLoading(true);
     setMessage('');
-
     try {
       const response = await fetch('https://myblogbackend-phgi.onrender.com/signin/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-
       const data = await response.json();
 
       if (response.ok) {
         setMessage(data.message || 'Successfully signed in');
         localStorage.setItem('user_id', data.user_id);
         localStorage.setItem('email', form.email);
-        navigate('/'); // Redirect to home page after successful sign-in
-        if(form.email === "deliveryperson@gtech.com"){
-          localStorage.setItem('user_id', data.user_id);
-          localStorage.setItem('email', form.email);
-          navigate('/delivery-orders'); // Redirect to delivery orders page for delivery person
-        }
-        else if(form.email === "admin@gtech.com"){
-          localStorage.setItem('user_id', data.user_id);
-          localStorage.setItem('email', form.email);
-          navigate('/dashboard'); // Redirect to admin page for super admin
-        }
-        else{
-          localStorage.setItem('user_id', data.user_id);
-          localStorage.setItem('email', form.email);
-          navigate('/'); // Redirect to home page for regular users
-        }
+
+        if (form.email === "deliveryperson@gtech.com") navigate('/delivery-orders');
+        else if (form.email === "admin@gtech.com") navigate('/dashboard');
+        else navigate('/');
       } else {
         setMessage(data.message || 'Sign in failed');
       }
@@ -69,16 +51,15 @@ export default function Signin() {
         <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2><hr className='mb-10'/>
 
         {message && (
-          <div className="mb-4 text-center text-sm text-red-600">
-            {message}
-          </div>
+          <div className="mb-4 text-center text-sm text-red-600">{message}</div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
-              placeholder='e.g johndoe@example.com'
+              placeholder="e.g johndoe@example.com"
               type="email"
               name="email"
               required
@@ -88,23 +69,37 @@ export default function Signin() {
             />
           </div>
 
+          {/* Password with Eye Icon */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input
-              placeholder='Your password'
-              type="password"
-              name="password"
-              required
-              value={form.password}
-              onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          {/* forgot your paswword */}
-          <div className="text-right text-sm">
-            <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot your password?</a>
+            <div className="relative">
+              <input
+                placeholder="Your password"
+                type={showPassword ? "text" : "password"} // 👈 toggle type
+                name="password"
+                required
+                value={form.password}
+                onChange={handleChange}
+                className="w-full border border-gray-300 px-4 py-2 rounded pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? <HiEyeOff size={20}/> : <HiEye size={20}/>}
+              </button>
             </div>
+          </div>
 
+          {/* Forgot password */}
+          <div className="text-right text-sm">
+            <a href="/forgot-password" className="text-blue-600 hover:underline">
+              Forgot your password?
+            </a>
+          </div>
+
+          {/* Submit button */}
           <button
             type="submit"
             disabled={loading}
