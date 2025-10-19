@@ -31,8 +31,8 @@ export default function Signin() {
         localStorage.setItem('user_id', data.user_id);
         localStorage.setItem('email', form.email);
 
-        if (form.email === "deliveryperson@gtech.com") navigate('/delivery-orders');
-        else if (form.email === "admin@gtech.com") navigate('/dashboard');
+        if (form.email === "deliveryperson@gmail.com") navigate('/delivery-orders');
+        else if (form.email === "admingtech@gmail.com") navigate('/dashboard');
         else navigate('/');
       } else {
         setMessage(data.message || 'Sign in failed');

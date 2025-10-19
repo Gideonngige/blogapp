@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   // Redirect if not admin
   useEffect(() => {
-    if (email !== "admin@gtech.com") {
+    if (email !== "admingtech@gmail.com") {
       navigate('/'); // or navigate('/login') if you want to go to login page
     }
   }, [email, navigate]);

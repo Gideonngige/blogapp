@@ -41,7 +41,7 @@ const AddProduct = () => {
       data.append(key, formData[key]);
     }
     const email = localStorage.getItem('email');
-    if(email === "admin@gtech.com"){
+    if(email === "admingtech@gmail.com"){
       setIsAdding(true);
     try {
       const res = await axios.post('https://myblogbackend-phgi.onrender.com/add_product/', data, {

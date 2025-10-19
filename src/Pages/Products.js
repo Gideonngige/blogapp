@@ -9,7 +9,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (email === 'admin@gtech.com') {
+      if (email === 'admingtech@gmail.com') {
         try {
           const res = await fetch('https://myblogbackend-phgi.onrender.com/get_products/');
           const data = await res.json();
