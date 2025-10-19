@@ -24,7 +24,7 @@ const Orders = () => {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-5xl mx-auto px-4 py-10 flex flex-col min-h-screen">
       <h2 className="text-2xl font-bold mb-6">My Orders</h2>
 
       {loading && <p className="text-gray-600">Loading orders...</p>}

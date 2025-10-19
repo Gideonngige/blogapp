@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="max-w-5xl mx-auto px-4 py-8 flex flex-col min-h-screen">
         <h2 className="text-3xl font-bold mb-6 text-center">Latest Blogs</h2>
         {loading && <p className="text-center text-gray-500">Loading blogs...</p>}
         {!loading && blogs.length === 0 && (

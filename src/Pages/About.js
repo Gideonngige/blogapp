@@ -63,10 +63,6 @@ export default function About() {
   </a>
 </div>
         </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-sm text-gray-500">© {new Date().getFullYear()} All rights reserved.</p>
-        </div>
       </div>
     </div>
   );
