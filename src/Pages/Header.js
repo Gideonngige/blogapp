@@ -13,17 +13,17 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6">
-          <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
-          <li><Link to="/blog" className="hover:text-blue-500">Blogs</Link></li>
-          <li><Link to="/signin" className="hover:text-blue-500">SignIn</Link></li>
-          <li><Link to="/post-blog" className="hover:text-blue-500">Post Blog</Link></li>
-          <li><Link to="/signup" className="hover:text-blue-500">SignUp</Link></li>
-          <li><Link to="/about" className="hover:text-blue-500">About Us</Link></li>
-          <li><Link to="/contact" className="hover:text-blue-500">Contact Us</Link></li>
-          <li><Link to="/shop" className="hover:text-blue-500">Shop</Link></li>
-          <li><Link to="/services" className="hover:text-blue-500">Our Services</Link></li>
-          <li><Link to="/orders" className="hover:text-blue-500">My Orders</Link></li>
-          <li><Link to="/notifications" className="hover:text-blue-500 relative">Notifications</Link> </li>
+          <Link to="/" className="hover:text-blue-500">Home</Link>
+          <Link to="/blog" className="hover:text-blue-500">Blogs</Link>
+          <Link to="/post-blog" className="hover:text-blue-500">Post Blog</Link>
+          <Link to="/about" className="hover:text-blue-500">About Us</Link>
+          <Link to="/contact" className="hover:text-blue-500">Contact Us</Link>
+          <Link to="/shop" className="hover:text-blue-500">Shop</Link>
+          <Link to="/services" className="hover:text-blue-500">Our Services</Link>
+          <Link to="/orders" className="hover:text-blue-500">My Orders</Link>
+          <Link to="/notifications" className="hover:text-blue-500 relative">Notifications</Link>
+          <Link to="/signin" className="hover:text-blue-500">Signin</Link>
+          <Link to="/signup" className="hover:text-blue-500">Signup</Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -40,16 +40,16 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden bg-blue-500 px-4 pb-4">
           <nav className="flex flex-col space-y-2">
-          <li><Link to="/" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Home</Link></li>
-        <li><Link to="/blog" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Blogs</Link></li>
-      <li><Link to="/signin" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>SignIn</Link></li>
-      <li><Link to="/signup" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>SignUp</Link></li>
-      <li><Link to="/about" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>About Us</Link></li>
-      <li><Link to="/contact" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Contact Us</Link></li>
-      <li><Link to="/services" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Our Services</Link></li>
-      <li><Link to="/shop" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Shop</Link></li>
-      <li><Link to="/orders" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>My Orders</Link></li>
-      <li><Link to="/notifications" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Notifications</Link></li>
+          <Link to="/" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Home</Link>
+        <Link to="/blog" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Blogs</Link>
+      <Link to="/about" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>About Us</Link>
+      <Link to="/contact" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Contact Us</Link>
+      <Link to="/services" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Our Services</Link>
+      <Link to="/shop" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Shop</Link>
+      <Link to="/orders" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>My Orders</Link>
+      <Link to="/notifications" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Notifications</Link>
+      <Link to="/signin" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Signin</Link>
+      <Link to="/signup" className="hover:text-blue-500" onClick={() => setIsOpen(false)}>Signup</Link>
           </nav>
         </div>
       )}
