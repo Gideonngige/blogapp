@@ -37,7 +37,7 @@ export default function Signin() {
         localStorage.setItem('email', form.email);
         localStorage.setItem('token', data.token);
         localStorage.setItem('name', data.name);
-        localStorage.setItem('phone', data.phone);
+        localStorage.setItem('phone', data.phone_number);
         localStorage.setItem('profile_image', data.profile_image);
         localStorage.setItem('is_verified', data.is_verified);
 
