@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './Pages/Header'; // adjust paths as needed
-import Footer from './Pages/Footer'; // adjust paths as needed
+import Layout from './Pages/Layout';
 import Blog from './Pages/Blog';
 import Home from './Pages/Home';
 import Signup from './Pages/Signup';
@@ -23,10 +22,13 @@ import Dashboard from './Pages/Dashboard';
 import ForgotPassword from './Pages/ForgotPassword';
 import BlogDetail from './Pages/BlogDetail'; // optional
 
+import { UserProvider } from './Pages/Context/UserContext';
+
 function App() {
   return (
+    <UserProvider>
     <Router>
-      <Header />
+      <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
@@ -50,8 +52,9 @@ function App() {
         <Route path="/blog/:id" element={<BlogDetail />} />
         {/* Add more routes as needed */}
       </Routes>
-      <Footer/>
+      </Layout>
     </Router>
+    </UserProvider>
   );
 }
 

@@ -1,12 +1,10 @@
 import React from "react";
-import Layout from "./Layout";
 import { FaHeartbeat, FaMoneyBillWave, FaSeedling, FaChalkboardTeacher } from "react-icons/fa";
 import heroImage from "../images/welcome.jpg"; // Replace with your actual image path
 import aboutImage from "../images/about-us.jpg"; // Replace with your actual image path
 
 function App() {
   return (
-    <Layout>
       <div className="font-sans text-gray-800">
         {/* Hero Section */}
         <section
@@ -74,7 +72,6 @@ function App() {
           </a>
         </section>
       </div>
-    </Layout>
   );
 }
 

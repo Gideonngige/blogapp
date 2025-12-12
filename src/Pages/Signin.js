@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
+import { useContext } from "react";
+import { UserContext } from './Context/UserContext';
+
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -8,6 +11,8 @@ export default function Signin() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false); // 👈 new state
+
+  const { loginUser } = useContext(UserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +35,27 @@ export default function Signin() {
         setMessage(data.message || 'Successfully signed in');
         localStorage.setItem('user_id', data.user_id);
         localStorage.setItem('email', form.email);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('name', data.name);
+        localStorage.setItem('phone', data.phone);
+        localStorage.setItem('profile_image', data.profile_image);
+        localStorage.setItem('is_verified', data.is_verified);
+
+        const userData = {
+  user_id: data.user_id,
+  name: data.name,
+  phone: data.phone,
+  email: form.email,
+  token: data.token,
+  profile_image: data.profile_image,
+  is_verified: data.is_verified
+};
+    // Save globally
+  localStorage.setItem("user", JSON.stringify(userData));
+
+  // Update context -> Header updates instantly
+  loginUser(userData);
+
 
         if (form.email === "deliveryperson@gmail.com") navigate('/delivery-orders');
         else if (form.email === "admingtech@gmail.com") navigate('/dashboard');
