@@ -63,10 +63,12 @@ export default function Header() {
 
             {user ? (
               <div className="flex items-center space-x-3 mt-3">
+                <Link to="/profile" onClick={() => setIsOpen(false)}>
                 <img
                   src={user.profile_image || "/default-avatar.png"}
-                  className="w-10 h-10 rounded-full"
+                  className="w-10 h-10 rounded-full border-2 object-cover"
                 />
+                </Link>
                 <span>{user.name}</span>
               </div>
             ) : (
