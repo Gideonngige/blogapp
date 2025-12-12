@@ -58,9 +58,6 @@ export default function Signin() {
   // Update context -> Header updates instantly
   loginUser(userData);
 
-  alert(data.role === "admin");
-  alert(data.is_verified === true);
-
         if (data.role === "deliveryperson" && data.is_verified === true){
           navigate('/delivery-orders');
         } 
@@ -69,7 +66,7 @@ export default function Signin() {
 
         } 
         else navigate('/');
-        
+
       } else {
         setMessage(data.message || 'Sign in failed');
       }
