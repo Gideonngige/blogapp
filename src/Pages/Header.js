@@ -53,8 +53,13 @@ export default function Header() {
           <nav className="flex flex-col space-y-2">
             <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
             <Link to="/blog" onClick={() => setIsOpen(false)}>Blogs</Link>
+            <Link to="/post-blog" onClick={() => setIsOpen(false)}>Post Blog</Link>
             <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
             <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
+            <Link to="/shop" onClick={() => setIsOpen(false)}>Shop</Link>
+            <Link to="/services" onClick={() => setIsOpen(false)}>Services</Link>
+            <Link to="/orders" onClick={() => setIsOpen(false)}>My Orders</Link>
+            <Link to="/notifications" onClick={() => setIsOpen(false)}>Notifications</Link>
 
             {user ? (
               <div className="flex items-center space-x-3 mt-3">
