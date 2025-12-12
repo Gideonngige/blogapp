@@ -40,6 +40,7 @@ export default function Signin() {
         localStorage.setItem('phone', data.phone_number);
         localStorage.setItem('profile_image', data.profile_image);
         localStorage.setItem('is_verified', data.is_verified);
+        localStorage.setItem('role', data.role);
 
         const userData = {
   user_id: data.user_id,
@@ -48,7 +49,8 @@ export default function Signin() {
   email: form.email,
   token: data.token,
   profile_image: data.profile_image,
-  is_verified: data.is_verified
+  is_verified: data.is_verified,
+  role: data.role
 };
     // Save globally
   localStorage.setItem("user", JSON.stringify(userData));
@@ -56,10 +58,18 @@ export default function Signin() {
   // Update context -> Header updates instantly
   loginUser(userData);
 
+  alert(data.role === "admin");
+  alert(data.is_verified === true);
 
-        if (form.email === "deliveryperson@gmail.com") navigate('/delivery-orders');
-        else if (form.email === "admingtech@gmail.com") navigate('/dashboard');
+        if (data.role === "deliveryperson" && data.is_verified === true){
+          navigate('/delivery-orders');
+        } 
+        else if (data.role === "admin" && data.is_verified === true){
+          navigate('/dashboard');
+
+        } 
         else navigate('/');
+        
       } else {
         setMessage(data.message || 'Sign in failed');
       }

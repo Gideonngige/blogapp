@@ -6,10 +6,11 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const email = localStorage.getItem('email');
+  const role = localStorage.getItem('role');
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (email === 'admingtech@gmail.com') {
+      if (role === 'admin') {
         try {
           const res = await fetch('https://myblogbackend-phgi.onrender.com/get_products/');
           const data = await res.json();

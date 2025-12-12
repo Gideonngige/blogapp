@@ -9,8 +9,8 @@ const AddStock = () => {
   const email = localStorage.getItem('email');
   useEffect(() => {
     // Fetch products from your API
-    const email = localStorage.getItem('email');
-    if(email === "admin@gtech.com"){
+    const role = localStorage.getItem('role');
+    if(role === "admin"){
     fetch('https://myblogbackend-phgi.onrender.com/get_products/') // Replace with actual endpoint
       .then((res) => res.json())
       .then((data) => setProducts(data.products))

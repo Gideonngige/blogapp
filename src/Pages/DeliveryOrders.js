@@ -9,8 +9,8 @@ const DeliveryOrders = () => {
   // Fetch all orders
   useEffect(() => {
     const fetchOrders = async () => {
-    const email = localStorage.getItem('email');
-    if(email === "deliveryperson@gmail.com"){
+    const role = localStorage.getItem('role');
+    if(role === "deliveryperson"){
         try {
         const res = await axios.get('https://myblogbackend-phgi.onrender.com/get_all_orders/'); // Replace with actual endpoint
         setOrders(res.data.orders);

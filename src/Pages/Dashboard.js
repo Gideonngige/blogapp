@@ -8,15 +8,15 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
   const [messages, setMessages] = useState([]);
-  const email = localStorage.getItem('email');
+  const role = localStorage.getItem('role');
   const navigate = useNavigate();
 
   // Redirect if not admin
   useEffect(() => {
-    if (email !== "admingtech@gmail.com") {
+    if (role !== "admin") {
       navigate('/'); // or navigate('/login') if you want to go to login page
     }
-  }, [email, navigate]);
+  }, [role, navigate]);
 
   useEffect(() => {
     const fetchStats = async () => {
