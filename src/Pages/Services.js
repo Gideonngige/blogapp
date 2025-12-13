@@ -8,16 +8,16 @@ const services = [
     title: 'Web Development',
     description:
       'We build responsive, fast, and user-friendly websites tailored to your business needs using modern frameworks and tools.',
-    price: 'KES 40,000+',
-    rawPrice: 40000,
+    price: 'KES 60,000+',
+    rawPrice: 60000,
   },
   {
     icon: <Smartphone size={32} className="text-green-600" />,
     title: 'Mobile App Development',
     description:
       'Our mobile apps are designed for performance and usability, delivering seamless experiences on both Android and iOS.',
-    price: 'KES 60,000+',
-    rawPrice: 60000,
+    price: 'KES 150,000+',
+    rawPrice: 150000,
   },
   {
     icon: <Brush size={32} className="text-pink-500" />,
