@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
 import { useContext } from "react";
 import { UserContext } from './Context/UserContext';
+import { API_URL } from './Config/Env';
 
 
 export default function Signin() {
@@ -24,7 +25,7 @@ export default function Signin() {
     setLoading(true);
     setMessage('');
     try {
-      const response = await fetch('https://myblogbackend-phgi.onrender.com/signin/', {
+      const response = await fetch(`${API_URL}/signin/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

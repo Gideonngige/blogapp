@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Bell } from 'lucide-react';
+import { API_URL } from './Config/Env';
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
@@ -11,7 +12,7 @@ export default function NotificationsPage() {
   const fetchNotifications = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`https://myblogbackend-phgi.onrender.com/get_user_notifications/${userId}/`);
+      const response = await axios.get(`${API_URL}/get_user_notifications/${userId}/`);
       setNotifications(response.data || []);
     } catch (error) {
       console.error('Error fetching notifications:', error);
@@ -22,7 +23,7 @@ export default function NotificationsPage() {
 
   const markAsRead = async (notifId) => {
     try {
-      await axios.get(`https://myblogbackend-phgi.onrender.com/mark_notification_as_read/${notifId}/`);
+      await axios.get(`${API_URL}/mark_notification_as_read/${notifId}/`);
       // Refresh notifications after marking as read
       fetchNotifications();
     } catch (error) {

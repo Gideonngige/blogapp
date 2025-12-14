@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
+
 export default function Contact() {
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -15,7 +17,7 @@ export default function Contact() {
   setIsSending(true);
   try {
     const response = await axios.post(
-      'https://myblogbackend-phgi.onrender.com/send_message/',
+      `${API_URL}/send_message/`,
       { message, user_id },
       {
         headers: {

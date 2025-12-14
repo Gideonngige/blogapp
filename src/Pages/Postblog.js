@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 export default function PostBlog() {
   const user_id = localStorage.getItem('user_id');
@@ -41,7 +42,7 @@ export default function PostBlog() {
     setIsPosting(true);
     try {
       const response = await axios.post(
-        'https://myblogbackend-phgi.onrender.com/postblog/',
+        `${API_URL}/postblog/`,
         formData,
         {
           headers: {

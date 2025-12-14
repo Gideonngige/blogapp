@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from './Config/Env';
 
 const Products = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Products = () => {
     const fetchProducts = async () => {
       if (role === 'admin') {
         try {
-          const res = await fetch('https://myblogbackend-phgi.onrender.com/get_products/');
+          const res = await fetch(`${API_URL}/get_products/`);
           const data = await res.json();
           setProducts(data.products);
         } catch (err) {

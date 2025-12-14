@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ const AddProduct = () => {
     if(role === "admin"){
       setIsAdding(true);
     try {
-      const res = await axios.post('https://myblogbackend-phgi.onrender.com/add_product/', data, {
+      const res = await axios.post(`${API_URL}/add_product/`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

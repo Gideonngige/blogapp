@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_URL } from './Config/Env';
 
 const AddStock = () => {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ const AddStock = () => {
     // Fetch products from your API
     const role = localStorage.getItem('role');
     if(role === "admin"){
-    fetch('https://myblogbackend-phgi.onrender.com/get_products/') // Replace with actual endpoint
+    fetch(`${API_URL}/get_products/`) // Replace with actual endpoint
       .then((res) => res.json())
       .then((data) => setProducts(data.products))
       .catch((err) => console.error('Error fetching products:', err));
@@ -38,7 +39,7 @@ const AddStock = () => {
 
     try {
       const response = await fetch(
-        `https://myblogbackend-phgi.onrender.com/add_stock/${productId}/${additionalStock}`
+        `${API_URL}/add_stock/${productId}/${additionalStock}`
       );
       const data = await response.json();
 

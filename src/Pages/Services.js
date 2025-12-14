@@ -1,6 +1,7 @@
 import React from 'react';
 import { Laptop2, Smartphone, Brush, Wrench, Users } from 'lucide-react';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 const services = [
   {
@@ -62,7 +63,7 @@ export default function Services() {
 
     try {
       const response = await axios.post(
-        'https://myblogbackend-phgi.onrender.com/create_order/',
+        `${API_URL}/create_order/`,
         { user_id, product_name, quantity, price },
         {
           headers: {

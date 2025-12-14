@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 const DeliveryOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -12,7 +13,7 @@ const DeliveryOrders = () => {
     const role = localStorage.getItem('role');
     if(role === "deliveryperson"){
         try {
-        const res = await axios.get('https://myblogbackend-phgi.onrender.com/get_all_orders/'); // Replace with actual endpoint
+        const res = await axios.get(`${API_URL}/get_all_orders/`); // Replace with actual endpoint
         setOrders(res.data.orders);
         setLoading(false);
       } catch (err) {
@@ -35,7 +36,7 @@ const DeliveryOrders = () => {
   // Mark order as delivered
   const markAsDelivered = async (orderId) => {
     try {
-      await axios.get(`https://myblogbackend-phgi.onrender.com/confirm_order/${orderId}/`); // Replace with your endpoint
+      await axios.get(`${API_URL}/confirm_order/${orderId}/`); // Replace with your endpoint
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order.id === orderId ? { ...order, delivered: true } : order

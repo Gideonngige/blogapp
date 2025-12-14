@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 export default function ForgotPassword() {
 
@@ -19,7 +20,7 @@ export default function ForgotPassword() {
         setMessage('');
         setSending(true);
         try {
-        const response = await axios.get(`https://myblogbackend-phgi.onrender.com/resetpassword/${email}/`);
+        const response = await axios.get(`${API_URL}/resetpassword/${email}/`);
         setMessage(response.data.message || 'Password reset link sent to your email');
         alert(response.data.message || 'Password reset link sent to your email');
         setEmail('');

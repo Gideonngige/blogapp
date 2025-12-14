@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
@@ -9,7 +10,7 @@ export default function Home() {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://myblogbackend-phgi.onrender.com/get_blog_posts/');
+      const response = await axios.get(`${API_URL}/get_blog_posts/`);
       const posts = response.data.posts;
       const enriched = posts.map(post => ({
         ...post,
@@ -37,7 +38,7 @@ export default function Home() {
       return;
     }
     try {
-      const response = await axios.get(`https://myblogbackend-phgi.onrender.com/like_blog_post/${user_id}/${blog_id}/`);
+      const response = await axios.get(`${API_URL}/like_blog_post/${user_id}/${blog_id}/`);
       if (response.status === 200) {
         fetchBlogs(); // Refresh blogs to show updated likes
       }

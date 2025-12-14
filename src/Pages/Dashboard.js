@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // <-- Import useNavigate
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { API_URL } from './Config/Env';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -21,7 +22,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get('https://myblogbackend-phgi.onrender.com/get_dashboard_data/');
+        const response = await axios.get(`${API_URL}/get_dashboard_data/`);
         setStats(response.data);
       } catch (error) {
         console.error("Error fetching dashboard stats:", error);
@@ -38,7 +39,7 @@ const Dashboard = () => {
     const fetchMessages = async () => {
       setLoading2(true);
       try {
-        const response = await axios.get('https://myblogbackend-phgi.onrender.com/get_messages/');
+        const response = await axios.get(`${API_URL}/get_messages/`);
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching messages:", error);

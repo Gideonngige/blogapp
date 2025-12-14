@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
+import { API_URL } from './Config/Env';
 
 export default function Signup() {
   const [isSigningUp, setIsSigningUp] = useState(false);
@@ -41,7 +42,7 @@ export default function Signup() {
 
     try {
       setIsSigningUp(true);
-      const response = await fetch('https://myblogbackend-phgi.onrender.com/signup/', {
+      const response = await fetch(`${API_URL}/signup/`, {
         method: 'POST',
         body: formData,
       });

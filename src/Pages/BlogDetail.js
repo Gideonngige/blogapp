@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from './Layout';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 export default function BlogDetail() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ export default function BlogDetail() {
 
   const fetchBlog = async () => {
     try {
-      const res = await axios.get(`https://myblogbackend-phgi.onrender.com/get_blog_post/${id}/`);
+      const res = await axios.get(`${API_URL}/get_blog_post/${id}/`);
       setBlog(res.data.post);
     } catch (error) {
       console.error('Error fetching blog:', error);
@@ -30,7 +31,7 @@ export default function BlogDetail() {
       return;
     }
     try {
-      const response = await axios.get(`https://myblogbackend-phgi.onrender.com/like_blog_post/${user_id}/${blog_id}/`);
+      const response = await axios.get(`${API_URL}/like_blog_post/${user_id}/${blog_id}/`);
       if (response.status === 200) {
         fetchBlog(); // Refresh blogs to show updated likes
       }

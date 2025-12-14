@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_URL } from './Config/Env';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -10,7 +11,7 @@ const Orders = () => {
     const fetchOrders = async () => {
       const user_id = localStorage.getItem('user_id');
       try {
-        const res = await axios.get(`https://myblogbackend-phgi.onrender.com/get_product_orders/${user_id}/`); // Replace with actual API
+        const res = await axios.get(`${API_URL}/get_product_orders/${user_id}/`); // Replace with actual API
         setOrders(res.data.orders);
         setLoading(false);
       } catch (err) {

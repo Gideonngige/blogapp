@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from './Config/Env';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function Profile() {
 
     try {
       const response = await fetch(
-        `https://myblogbackend-phgi.onrender.com/update-profile/${user_id}/`,
+        `${API_URL}/update-profile/${user_id}/`,
         {
           method: "PUT",
           headers: {

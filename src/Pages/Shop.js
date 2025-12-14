@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PaystackButton } from 'react-paystack';
+import { API_URL } from './Config/Env';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -22,7 +23,7 @@ const Shop = () => {
     }
     try {
       const response = await axios.post(
-        'https://myblogbackend-phgi.onrender.com/create_product_order/',
+        `${API_URL}/create_product_order/`,
         { product_id, user_id, product_name, quantity: 1, price },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -41,7 +42,7 @@ const Shop = () => {
     if (!user_id) return alert("Please log in to checkout.");
     try {
       const response = await axios.post(
-        'https://myblogbackend-phgi.onrender.com/create_bulk_order/',
+        `${API_URL}/create_bulk_order/`,
         {
           user_id,
           products: cart.map(item => ({
@@ -67,7 +68,7 @@ const Shop = () => {
       const email = localStorage.getItem('email');
       if (email) setEmail(email);
       try {
-        const res = await axios.get('https://myblogbackend-phgi.onrender.com/get_products/');
+        const res = await axios.get(`${API_URL}/get_products/`);
         setProducts(res.data.products);
         setLoading(false);
       } catch (err) {
