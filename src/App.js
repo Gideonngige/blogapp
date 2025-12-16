@@ -22,6 +22,7 @@ import Dashboard from './Pages/Dashboard';
 import ForgotPassword from './Pages/ForgotPassword';
 import BlogDetail from './Pages/BlogDetail'; // optional
 import Profile from './Pages/Profile';
+import Projects from './Pages/Projects';
 
 import { UserProvider } from './Pages/Context/UserContext';
 
@@ -52,6 +53,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/our-projects" element={<Projects />} />
         {/* Add more routes as needed */}
       </Routes>
       </Layout>
