@@ -4,7 +4,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           
           <p className="text-sm text-center md:text-left">
-            &copy; 2025 Gtech Company. All rights reserved.
+            &copy; {new Date().getFullYear()} Gtech Company. All rights reserved.
           </p>
           
           <nav>
