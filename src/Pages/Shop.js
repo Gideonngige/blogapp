@@ -41,7 +41,7 @@ const Shop = () => {
   const handleCheckout = async () => {
     if (!user_id) return alert("Please log in to checkout.");
     try {
-      const response = await axios.post(
+      await axios.post(
         `${API_URL}/create_bulk_order/`,
         {
           user_id,

@@ -6,8 +6,6 @@ const AddStock = () => {
   const [stockToAdd, setStockToAdd] = useState({});
   const [message, setMessage] = useState('');
 
-  
-  const email = localStorage.getItem('email');
   useEffect(() => {
     // Fetch products from your API
     const role = localStorage.getItem('role');

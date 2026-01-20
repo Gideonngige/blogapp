@@ -45,7 +45,7 @@ const AddProduct = () => {
     if(role === "admin"){
       setIsAdding(true);
     try {
-      const res = await axios.post(`${API_URL}/add_product/`, data, {
+      await axios.post(`${API_URL}/add_product/`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

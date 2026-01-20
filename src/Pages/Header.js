@@ -77,6 +77,7 @@ export default function Header() {
                 <img
                   src={user.profile_image || "/default-avatar.png"}
                   className="w-10 h-10 rounded-full border-2 object-cover"
+                  alt="profile"
                 />
                 </Link>
                 <span>{user.name}</span>
