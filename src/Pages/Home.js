@@ -1,6 +1,6 @@
 import React from "react";
 import { FaHeartbeat, FaMoneyBillWave, FaSeedling, FaChalkboardTeacher } from "react-icons/fa";
-import heroImage from "../images/welcome.jpg"; // Replace with your actual image path
+import heroImage from "../images/blue_home.jpg"; // Replace with your actual image path
 import aboutImage from "../images/about-us.jpg"; // Replace with your actual image path
 
 function App() {
