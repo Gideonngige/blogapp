@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "./Context/UserContext";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { API_URL } from "./Config/Env";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function Header() {
           {user ? (
             <Link to="/profile">
               <img
-                src={user.profile_image || "/default-avatar.png"}
+                src={`${API_URL}${user.profile_image}` || "/default-avatar.png"}
                 className="w-10 h-10 rounded-full border-2 object-cover"
                 alt="profile"
               />

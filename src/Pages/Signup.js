@@ -10,7 +10,6 @@ export default function Signup() {
     email: '',
     password: '',
     confirmPassword: '',
-    avatar: null,
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +37,6 @@ export default function Signup() {
     formData.append('phonenumber', form.phonenumber);
     formData.append('email', form.email);
     formData.append('password', form.password);
-    formData.append('avatar', form.avatar);
 
     try {
       setIsSigningUp(true);
@@ -67,7 +65,7 @@ export default function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2><hr className="mb-10" />
+        <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">Sign Up</h2><hr className="mb-10" />
 
         <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
           {/* Name */}
@@ -107,19 +105,6 @@ export default function Signup() {
               onChange={handleChange}
               placeholder="eg. johndoe@example.com"
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Avatar */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Avatar</label>
-            <input
-              type="file"
-              name="avatar"
-              accept="image/*"
-              required
-              onChange={handleChange}
-              className="w-full"
             />
           </div>
 

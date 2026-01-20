@@ -47,10 +47,10 @@ export default function BlogDetail() {
   return (
     
       <div key={blog.id} className="bg-white shadow-md rounded-lg overflow-hidden m-8">
-            <img src={blog.image} alt="Blog visual" className="w-full h-60 object-cover" />
+            <img src={`${API_URL}${blog.image}`} alt="Blog visual" className="w-full h-60 object-cover" />
             <div className="p-6">
               <div className="flex items-center gap-4 mb-4">
-                <img src={blog.profile_image} alt={blog.name} className="w-12 h-12 rounded-full" />
+                <img src={`${API_URL}${blog.profile_image}`} alt={blog.name} className="w-12 h-12 rounded-full" />
                 <div>
                   <p className="font-semibold font-serif">{blog.name}</p>
                   <p className="text-sm text-gray-500">{new Date(blog.created_at).toLocaleString()}</p>

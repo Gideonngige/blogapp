@@ -82,7 +82,7 @@ export default function Signin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2><hr className='mb-10'/>
+        <h2 className="text-2xl font-bold mb-6 text-blue-600 text-center">Sign In</h2><hr className='mb-10'/>
 
         {message && (
           <div className="mb-4 text-center text-sm text-red-600">{message}</div>

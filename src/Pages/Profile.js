@@ -41,7 +41,8 @@ export default function Profile() {
 
     const formData = new FormData();
     formData.append("name", profile.name);
-    formData.append("phone", profile.phone);
+    formData.append("phone_number", profile.phone);
+    formData.append("user_id", user_id);
 
     if (selectedFile) {
       formData.append("profile_image", selectedFile);
@@ -49,9 +50,9 @@ export default function Profile() {
 
     try {
       const response = await fetch(
-        `${API_URL}/update-profile/${user_id}/`,
+        `${API_URL}/update_user_profile/`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -132,7 +133,7 @@ export default function Profile() {
             <img
               src={
                 previewImage ||
-                profile.profile_image ||
+                `${API_URL}${profile.profile_image}` ||
                 "https://via.placeholder.com/120"
               }
               alt="Profile"
