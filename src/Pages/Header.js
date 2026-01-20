@@ -10,7 +10,14 @@ export default function Header() {
   return (
     <header className="bg-blue-600 text-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <h1 className="text-xl font-bold">G-Tech</h1>
+        <Link to="/" className="flex items-center">
+        <img
+          src="/logo.png"
+          alt="G-Tech Logo"
+          className="h-10 w-10 rounded-full object-cover border-2 border-white"
+        />
+        </Link>
+
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center space-x-6">
