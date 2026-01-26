@@ -75,7 +75,7 @@ export default function Header() {
               <div className="flex items-center space-x-3 mt-3">
                 <Link to="/profile" onClick={() => setIsOpen(false)}>
                 <img
-                  src={user.profile_image || "/default-avatar.png"}
+                  src={`${API_URL}${user.profile_image}` || "/default-avatar.png"}
                   className="w-10 h-10 rounded-full border-2 object-cover"
                   alt="profile"
                 />

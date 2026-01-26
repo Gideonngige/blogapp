@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -19,9 +20,21 @@ const Products = () => {
         } catch (err) {
           console.error('Error fetching products:', err);
           setError('Failed to load products.');
+          // use sweetalert2 to show error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to load products. Please try again later.',
+          });
         }
       } else {
         setError('You are not authorized to view this page.');
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Unauthorized',
+          text: 'You are not authorized to view this page.',
+        });
       }
     };
 

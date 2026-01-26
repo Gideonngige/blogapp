@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 export default function ForgotPassword() {
 
@@ -22,16 +23,25 @@ export default function ForgotPassword() {
         try {
         const response = await axios.get(`${API_URL}/resetpassword/${email}/`);
         setMessage(response.data.message || 'Password reset link sent to your email');
-        alert(response.data.message || 'Password reset link sent to your email');
+        // use sweetalert2 to show success
+        Swal.fire({
+            icon: 'success',
+            title: 'Email Sent',
+            text: 'Password reset link has been sent to your email.',
+        });
         setEmail('');
         // Optionally redirect to sign-in page
         navigate('/signin');
         } catch (error) {
         console.error('Error:', error);
         setMessage('Failed to send password reset link. Please try again.');
-        alert('Failed to send password reset link. Please try again.');
-        }
-        finally {
+        // use sweetalert2 to show error
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to send password reset link. Please try again later.',        
+        });
+        } finally {
         setSending(false);
         }
     };

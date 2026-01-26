@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // <-- Import useNavigate
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -26,6 +27,12 @@ const Dashboard = () => {
         setStats(response.data);
       } catch (error) {
         console.error("Error fetching dashboard stats:", error);
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load dashboard data. Please try again later.',
+        });
       } finally {
         setLoading(false);
       }
@@ -43,6 +50,12 @@ const Dashboard = () => {
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching messages:", error);
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load user messages. Please try again later.',
+        });
       } finally {
         setLoading2(false);
       }

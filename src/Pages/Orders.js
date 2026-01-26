@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -17,6 +18,12 @@ const Orders = () => {
       } catch (err) {
         console.error(err);
         setError('Failed to load orders.');
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load orders. Please try again later.',
+        });
         setLoading(false);
       }
     };

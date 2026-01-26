@@ -4,6 +4,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi';
 import { useContext } from "react";
 import { UserContext } from './Context/UserContext';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 
 export default function Signin() {
@@ -69,10 +70,20 @@ export default function Signin() {
         else navigate('/');
 
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message || 'Sign in failed',
+        });
         setMessage(data.message || 'Sign in failed');
       }
     } catch (error) {
       console.error('Sign-in error:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "An error occurred during sign in",
+      });
       setMessage('An error occurred during sign in');
     } finally {
       setLoading(false);

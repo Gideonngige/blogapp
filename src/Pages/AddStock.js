@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const AddStock = () => {
   const [products, setProducts] = useState([]);
@@ -17,6 +18,12 @@ const AddStock = () => {
     }
     else{
       setMessage('You are not authorized to view this page.');
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Unauthorized',
+        text: 'You are not authorized to view this page.',
+      });
     }
   }, []);
 
@@ -32,6 +39,12 @@ const AddStock = () => {
     const additionalStock = parseInt(stockToAdd[productId]);
     if (isNaN(additionalStock) || additionalStock < 0) {
       setMessage('Please enter a valid, non-negative stock value.');
+      // use sweetalert2 to show warning
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Input',
+        text: 'Please enter a valid, non-negative stock value.',
+      });
       return;
     }
 
@@ -43,6 +56,12 @@ const AddStock = () => {
 
       if (response.ok) {
         setMessage(`Stock updated for Product ID ${productId}: new stock = ${data.new_stock}`);
+        // use sweetalert2 to show success
+        Swal.fire({
+          icon: 'success',
+          title: 'Stock Updated',
+          text: `Stock updated for Product ID ${productId}: new stock = ${data.new_stock}`,
+        });
         setStockToAdd({});
         // Refresh the products list
         setProducts((prev) =>
@@ -52,9 +71,22 @@ const AddStock = () => {
         );
       } else {
         setMessage(`Error: ${data.message}`);
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Update Failed',
+          text: data.message || 'There was an error updating the stock. Please try again later.',
+        });
       }
     } catch (error) {
       setMessage('Failed to update stock. Please try again.');
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'There was an error updating the stock. Please try again later.',
+      });
+      console.error('Error updating stock:', error);
     }
   };
 

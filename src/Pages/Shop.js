@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PaystackButton } from 'react-paystack';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -18,7 +19,12 @@ const Shop = () => {
 
   const payProduct = async (product_id, product_name, price) => {
     if (!user_id) {
-      alert("Please sign in to buy a product.");
+      // use sweetalert2 to show the alert
+      Swal.fire({
+        icon: 'warning',
+        title: 'Not Signed In',
+        text: 'Please sign in to buy a product.',
+      });
       return;
     }
     try {
@@ -30,16 +36,33 @@ const Shop = () => {
       if (response.status === 200) {
         console.log("Order placed successfully:", response.data);
         setPaid(true);
-        alert("Order placed successfully!");
+        // use sweetalert2 to show success
+        Swal.fire({
+          icon: 'success',
+          title: 'Order Successful',
+          text: 'Your order has been placed successfully!',
+        });
       }
     } catch (error) {
       console.error("Error ordering product:", error);
-      alert("Failed to order product. Please try again later.");
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Order Failed',
+        text: 'There was an error placing your order. Please try again later.',
+      });
     }
   };
 
   const handleCheckout = async () => {
-    if (!user_id) return alert("Please log in to checkout.");
+    if (!user_id){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Not Signed In',
+        text: 'Please sign in to checkout.',
+      });
+      return;
+    }
     try {
       await axios.post(
         `${API_URL}/create_bulk_order/`,
@@ -54,12 +77,23 @@ const Shop = () => {
         },
         { headers: { 'Content-Type': 'application/json' } }
       );
-      alert("Bulk order placed successfully!");
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Checkout Successful',
+        text: 'Your bulk order has been placed successfully!',
+      });
+
       setCart([]);
       setCheckoutPaid(false);
     } catch (error) {
       console.error(error);
-      alert("Failed to checkout.");
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Checkout Failed',
+        text: 'There was an error during checkout. Please try again later.',
+      });
     }
   };
 
@@ -74,6 +108,12 @@ const Shop = () => {
       } catch (err) {
         console.error(err);
         setError('Failed to load products.');
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load products. Please try again later.',
+        });
         setLoading(false);
       }
     };
@@ -123,7 +163,14 @@ const Shop = () => {
       setCheckoutPaid(true);
       handleCheckout();
     },
-    onClose: () => alert("Payment cancelled."),
+    onClose: () => {
+      // use sweetalert2 to show alert
+      Swal.fire({
+        icon: 'info',
+        title: 'Payment Cancelled',
+        text: 'You have cancelled the payment.',
+      });
+    },
   };
 
   // Group products by category
@@ -138,7 +185,7 @@ const Shop = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col min-h-screen">
-      <h2 className="text-3xl font-bold mb-8">G-Tech Shop</h2>
+      <h2 className="text-3xl font-bold mb-8">NEXINDI Shop</h2>
 
       <div className="mb-6">
         <input

@@ -2,8 +2,18 @@ import React from "react";
 import { FaHeartbeat, FaMoneyBillWave, FaSeedling, FaChalkboardTeacher } from "react-icons/fa";
 import heroImage from "../images/blue_home.jpg"; // Replace with your actual image path
 import aboutImage from "../images/about-us.jpg"; // Replace with your actual image path
+import Swal from "sweetalert2";
 
 function App() {
+  // create a welcome alert when the home page loads saying  we are moving from G-Tech to NEXINDI
+  React.useEffect(() => {
+    Swal.fire({
+      title: 'Welcome to NEXINDI!',
+      text: 'We are excited to announce that G-Tech is now NEXINDI. Join us as we continue to empower Africa through technology!',
+      icon: 'info',
+      confirmButtonText: 'Explore NEXINDI'
+    });
+  }, []); 
   return (
       <div className="font-sans text-gray-800">
         {/* Hero Section */}
@@ -17,7 +27,7 @@ function App() {
         >
           <div className="absolute inset-0 bg-blue-900 bg-opacity-60"></div>
           <div className="relative z-10">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to G-Tech Company</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to NEXINDI Company</h1>
             <p className="text-lg md:text-xl mb-6">
               Empowering Africa through technology in Health, Finance, Agriculture, and Education.
             </p>
@@ -29,14 +39,14 @@ function App() {
 
         {/* About Section */}
         <section className="py-16 px-4 max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">About G-Tech</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">About NEXINDI</h2>
           <img
             src={aboutImage}
             alt="About G-Tech"
             className="w-full max-w-lg mx-auto rounded-lg shadow mb-6"
           />
           <p className="text-lg max-w-2xl mx-auto">
-            G-Tech is a tech-driven startup focused on solving real-world problems across Africa by providing scalable, impactful solutions in critical sectors.
+            NEXINDI is a tech-driven startup focused on solving real-world problems across Africa by providing scalable, impactful solutions in critical sectors.
           </p>
         </section>
 
@@ -61,7 +71,7 @@ function App() {
 
         {/* Call to Action */}
         <section className="py-16 px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Partner with G-Tech?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Partner with NEXINDI?</h2>
           <p className="text-lg mb-6 max-w-xl mx-auto">
             Let’s build the future of Africa together through technology and innovation.
           </p>

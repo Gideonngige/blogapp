@@ -2,6 +2,7 @@ import React from 'react';
 import { Laptop2, Smartphone, Brush, Wrench, Users } from 'lucide-react';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const services = [
   {
@@ -55,7 +56,12 @@ export default function Services() {
     const user_id = localStorage.getItem('user_id');
 
     if (!user_id) {
-      alert("Please sign in to send a message.");
+      // use sweetalert2 to show the alert
+      Swal.fire({
+        icon: 'warning',
+        title: 'Not Signed In',
+        text: 'Please sign in to order a service.',
+      });
       return;
     }
 
@@ -74,13 +80,29 @@ export default function Services() {
 
       if (response.status === 200) {
         console.log("Order placed successfully:", response.data);
-        alert("Order placed successfully!");
+        // use sweetalert2 to show success
+        Swal.fire({
+          icon: 'success',
+          title: 'Order Successful',
+          text: 'Your service order has been placed successfully!',
+        });
       } else {
-        throw new Error(response.data.message || "Failed to send message");
+        // throw new Error(response.data.message || "Failed to send message");
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Order Failed',
+          text: response.data.message || "Failed to place order",
+        });
       }
     } catch (error) {
       console.error("Error ordering service:", error);
-      alert("Failed to order service. Please try again later.");
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Order Failed',
+        text: 'There was an error placing your order. Please try again later.',
+      });
     } finally {
       setOrderingIndex(null);
     }

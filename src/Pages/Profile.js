@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -63,6 +64,12 @@ export default function Profile() {
       const data = await response.json();
       if (response.ok) {
         setMessage("Profile updated successfully");
+        // use sweetalert2 to show success
+        Swal.fire({
+          icon: 'success',
+          title: 'Profile Updated',
+          text: 'Your profile has been updated successfully!',
+        });
 
         // Update localStorage with new data
         localStorage.setItem("name", data.name);
@@ -75,10 +82,22 @@ export default function Profile() {
         }));
       } else {
         setMessage(data.message || "Update failed");
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Update Failed',
+          text: data.message || 'There was an error updating your profile. Please try again later.',
+        });
       }
     } catch (error) {
       console.error("Profile update error:", error);
       setMessage("An error occurred");
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong. Please try again later.',
+      });
     }
   };
 
@@ -95,26 +114,56 @@ export default function Profile() {
 
     if (!window.confirm("Are you sure you want to delete your account?"))
       return;
+    // use sweetalert2 to show confirmation
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(
+            `https://myblogbackend-phgi.onrender.com/delete-account/${user_id}/`,
+            {
+              method: "DELETE",
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
 
-    try {
-      const response = await fetch(
-        `https://myblogbackend-phgi.onrender.com/delete-account/${user_id}/`,
-        {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
+          if (response.ok) {
+            localStorage.clear();
+            navigate("/signup");
+            // use sweetalert2 to show success
+            Swal.fire(
+              'Deleted!',
+              'Your account has been deleted.',
+              'success'
+            );
+          } else {
+            setMessage("Failed to delete account");
+            // use sweetalert2 to show error
+            Swal.fire({
+              icon: 'error',
+              title: 'Deletion Failed',
+              text: 'Failed to delete your account. Please try again later.',
+            });
+          }
+        } catch (e) {
+          console.error(e);
+          setMessage("An error occurred");
+          // use sweetalert2 to show error
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong. Please try again later.',
+          });
         }
-      );
-
-      if (response.ok) {
-        localStorage.clear();
-        navigate("/signup");
-      } else {
-        setMessage("Failed to delete account");
       }
-    } catch (e) {
-      console.error(e);
-      setMessage("An error occurred");
-    }
+    });
   };
 
   return (

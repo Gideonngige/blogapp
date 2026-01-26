@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -51,6 +52,12 @@ const AddProduct = () => {
         },
       });
       setSuccess('Product added successfully!');
+      // usee sweetalert2 to show success
+      Swal.fire({
+        icon: 'success',
+        title: 'Product Added',
+        text: 'The product has been added successfully!',
+      });
       setError('');
       setFormData({
         name: '',
@@ -62,6 +69,12 @@ const AddProduct = () => {
       });
     } catch (err) {
       setError('Failed to add product. Check console for details.');
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Add Failed',
+        text: 'There was an error adding the product. Please try again later.',
+      });
       setSuccess('');
       console.error(err);
     }
@@ -71,6 +84,12 @@ const AddProduct = () => {
   }
   else{
     setError('You do not have permission to add products.');
+    // use sweetalert2 to show error
+    Swal.fire({
+      icon: 'error',
+      title: 'Unauthorized',
+      text: 'You do not have permission to add products.',
+    });
     setSuccess('');
   }
   };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 export default function Signup() {
   const [isSigningUp, setIsSigningUp] = useState(false);
@@ -28,7 +29,12 @@ export default function Signup() {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert('Passwords do not match');
+      // use sweetalert2 to show the error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Passwords do not match!',
+      })
       return;
     }
 
@@ -48,15 +54,28 @@ export default function Signup() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Signup successful');
+        Swal.fire({
+          icon: 'success',
+          title: 'Signup Successful!',
+          text: 'You have been successfully signed up.',
+        });
         setForm({ name: '', email: '', password: '', confirmPassword: '', phonenumber: '', avatar: null });
         window.location.href = '/signin';
       } else {
-        alert(`Signup failed: ${data.message}`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Signup Failed!',
+          text: data.message || 'An error occurred during signup.',
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Something went wrong. Try again.');
+      // use sweetalert2 to show the error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong. Please try again later.',
+      });
     } finally {
       setIsSigningUp(false);
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
@@ -22,6 +23,12 @@ export default function Home() {
       setBlogs(enriched);
     } catch (error) {
       console.error("Failed to fetch blogs:", error);
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to load blogs. Please try again later.',
+      });
     } finally {
       setLoading(false);
     }
@@ -34,7 +41,13 @@ export default function Home() {
   const handleLike = async (blog_id) => {
     const user_id = localStorage.getItem('user_id');
     if (!user_id) {
-      alert("Please sign in to like a blog.");
+      // alert("Please sign in to like a blog.");
+      // use sweetalert2 to show the alert
+      Swal.fire({
+        icon: 'warning',
+        title: 'Not Signed In',
+        text: 'Please sign in to like a blog.',
+      });
       return;
     }
     try {
@@ -44,6 +57,12 @@ export default function Home() {
       }
     } catch (error) {
       console.error('Error liking blog:', error);
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to like the blog post. Please try again later.',
+      });
     }
   };
 

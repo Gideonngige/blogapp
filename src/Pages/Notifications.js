@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Bell } from 'lucide-react';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
@@ -16,6 +17,12 @@ export default function NotificationsPage() {
       setNotifications(response.data || []);
     } catch (error) {
       console.error('Error fetching notifications:', error);
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to load notifications. Please try again later.',
+      });
     } finally {
       setLoading(false);
     }
@@ -28,6 +35,12 @@ export default function NotificationsPage() {
       fetchNotifications();
     } catch (error) {
       console.error('Error marking as read:', error);
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to mark notification as read. Please try again later.',
+      });
     }
   };
 

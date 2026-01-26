@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 const DeliveryOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -19,12 +20,24 @@ const DeliveryOrders = () => {
       } catch (err) {
         console.error(err);
         setError('Failed to load orders.');
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load orders. Please try again later.',
+        });
         setLoading(false);
       }
 
     }
     else{
         setError('You are not authorized to view this page.');
+        // use sweetalert2 to show error
+        Swal.fire({
+          icon: 'error',
+          title: 'Unauthorized',
+          text: 'You are not authorized to view this page.',
+        });
         setLoading(false);
     }
       
@@ -42,10 +55,20 @@ const DeliveryOrders = () => {
           order.id === orderId ? { ...order, delivered: true } : order
         )
       );
-      alert('Order marked as delivered.');
+      // use sweetalert2 to show success
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Order marked as delivered.',
+      });
     } catch (err) {
       console.error(err);
-      alert('Failed to update delivery status.');
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to update delivery status. Please try again later.',
+      });
     }
   };
 

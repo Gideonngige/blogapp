@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 export default function Contact() {
   const [message, setMessage] = useState('');
@@ -11,7 +12,12 @@ export default function Contact() {
 
   const user_id = localStorage.getItem('user_id');
   if (!user_id) {
-    alert("Please sign in to send a message.");
+    // use sweetalert2 to show the alert
+    Swal.fire({
+      icon: 'warning',
+      title: 'Not Signed In',
+      text: 'Please sign in to send a message.',
+    });
     return;
   }
   setIsSending(true);
@@ -28,14 +34,31 @@ export default function Contact() {
 
     if (response.status === 200) {
       console.log("Message sent successfully:", response.data);
-      alert("Message sent!");
+      // use sweetalert2 to show success
+      Swal.fire({
+        icon: 'success',
+        title: 'Message Sent',
+        text: 'Your message has been sent successfully!',
+      });
       setMessage("");
     } else {
-      throw new Error(response.data.message || "Failed to send message");
+      // throw new Error(response.data.message || "Failed to send message");
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Send Failed',
+        text: response.data.message || "Failed to send message",
+      });
     }
   } catch (error) {
     console.error("Error sending message:", error);
-    alert("Failed to send message. Please try again later.");
+    // alert("Failed to send message. Please try again later.");
+    // use sweetalert2 to show error
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'There was an error sending your message. Please try again later.',
+    });
   }
   finally {
     setIsSending(false);

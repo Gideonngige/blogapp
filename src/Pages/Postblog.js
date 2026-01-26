@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from './Config/Env';
+import Swal from "sweetalert2";
 
 export default function PostBlog() {
   const user_id = localStorage.getItem('user_id');
@@ -27,7 +28,12 @@ export default function PostBlog() {
 
   const handleSubmit = async (e) => {
     if (!form.user_id) {
-      alert("Please sign in to post a blog.");
+      // use sweetalert2 to show the alert
+      Swal.fire({
+        icon: 'warning',
+        title: 'Not Signed In',
+        text: 'Please sign in to post a blog.',
+      });
       return;
     }
 
@@ -50,10 +56,21 @@ export default function PostBlog() {
           },
         }
       );
-      alert("Blog posted successfully!");
+      // use sweetalert2 to show success
+      Swal.fire({
+        icon: 'success',
+        title: 'Blog Posted',
+        text: 'Your blog has been posted successfully!',
+      });
 
       if (response.status === 200 || response.status === 201) {
         setMessage('Blog posted successfully!');
+        // use sweetalert2 to show success
+        Swal.fire({
+          icon: 'success',
+          title: 'Blog Posted',
+          text: 'Your blog has been posted successfully!',
+        });
         setForm({ title: '', image: null, content: '' });
         console.log('Blog posted successfully:', response.data);
       }
@@ -62,6 +79,12 @@ export default function PostBlog() {
     } catch (error) {
       console.error(error);
       setMessage('Failed to post blog. Check console for errors.');
+      // use sweetalert2 to show error
+      Swal.fire({
+        icon: 'error',
+        title: 'Post Failed',
+        text: 'There was an error posting your blog. Please try again later.',
+      });
     }
     finally {
       setIsPosting(false);
