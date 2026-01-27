@@ -23,6 +23,7 @@ import ForgotPassword from './Pages/ForgotPassword';
 import BlogDetail from './Pages/BlogDetail'; // optional
 import Profile from './Pages/Profile';
 import Projects from './Pages/Projects';
+import Stock from './Pages/Stocks';
 
 import { UserProvider } from './Pages/Context/UserContext';
 
@@ -54,6 +55,7 @@ function App() {
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/our-projects" element={<Projects />} />
+        <Route path="/stocks" element={<Stock />} />
         {/* Add more routes as needed */}
       </Routes>
       </Layout>

@@ -126,17 +126,31 @@ useEffect(() => {
         <ClientsSection />
 
         {/* Call to Action */}
-        <section className="py-16 px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Partner with NEXINDI?</h2>
-          <p className="text-lg mb-6 max-w-xl mx-auto">
-            Let’s build the future of Africa together through technology and innovation.
-          </p>
-          <a href="/contact">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
-            Contact Us
-          </button>
-          </a>
-        </section>
+        <section className="py-16 px-4 text-center bg-gray-50">
+  <h2 className="text-3xl md:text-4xl font-bold mb-4">
+    Ready to Partner with NEXINDI?
+  </h2>
+  <p className="text-lg mb-8 max-w-xl mx-auto">
+    Let’s build the future of Africa together through technology and innovation.
+  </p>
+
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    {/* Contact Button */}
+    <a href="/contact">
+      <button className="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+        Contact Us
+      </button>
+    </a>
+
+    {/* Stock Button */}
+    <a href="/stocks">
+      <button className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition">
+        Buy NEXINDI Shares
+      </button>
+    </a>
+  </div>
+</section>
+
       </div>
   );
 }
