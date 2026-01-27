@@ -45,7 +45,7 @@ export default function About() {
             <div>
               <h3 className="text-xl font-semibold text-gray-800">Gideon Ushindi</h3>
               <p className="text-gray-600 mt-2">
-                Gideon Ushindi is a passionate full-stack developer and tech enthusiast based in Meru, Kenya. Skilled in React, React Native, Django, and Laravel. He is also a machine learning ethuasist. Gideon is focused on building practical solutions in finance, education, health, and agriculture.
+                Gideon Ushindi is a passionate Software Engineer and technology enthusiast based in Meru, Kenya, with strong experience in React, React Native, Flutter, Dart, Php,  Django, Laravel, WordPress, and UI/UX. He is also a machine learning enthusiast with a keen interest in building intelligent, data-driven systems. Gideon is focused on creating practical, impactful digital solutions in the areas of finance, education, health, and agriculture, using technology to solve real-world problems and drive innovation.
               </p>
               <p className="text-blue-600 mt-2">
                 <a href="mailto:ushindigideon@gmail.com" className="hover:underline">ushindigideon@gmail.com</a>

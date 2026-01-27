@@ -3,8 +3,30 @@ import { FaHeartbeat, FaMoneyBillWave, FaSeedling, FaChalkboardTeacher } from "r
 import heroImage from "../images/blue_home.jpg"; // Replace with your actual image path
 import aboutImage from "../images/about-us.jpg"; // Replace with your actual image path
 import Swal from "sweetalert2";
+import { useState, useEffect } from "react";
+
+import ClientsSection from "./Components/ClientsSection";
+import StatsSection from "./Components/StatsSection";
+
+import hero1 from "../images/blue_home.jpg";
+import hero2 from "../images/white_home.jpg";
+import hero3 from "../images/home_third.jpg";
+
+const heroImages = [hero1, hero2, hero3];
 
 function App() {
+
+const [currentSlide, setCurrentSlide] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  }, 5000); // change slide every 5 seconds
+
+  return () => clearInterval(interval);
+}, []);
+
+
   // create a welcome alert when the home page loads saying  we are moving from G-Tech to NEXINDI
   React.useEffect(() => {
     Swal.fire({
@@ -18,37 +40,67 @@ function App() {
       <div className="font-sans text-gray-800">
         {/* Hero Section */}
         <section
-          className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 text-white"
-          style={{
-            backgroundImage: `url(${heroImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0 bg-blue-900 bg-opacity-60"></div>
-          <div className="relative z-10">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to NEXINDI Company</h1>
-            <p className="text-lg md:text-xl mb-6">
-              Empowering Africa through technology in Health, Finance, Agriculture, and Education.
-            </p>
-            <a href="/services"><button className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition">
-              Get Started
-            </button></a>
-          </div>
-        </section>
+  className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 text-white transition-all duration-1000"
+  style={{
+    backgroundImage: `url(${heroImages[currentSlide]})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  {/* Dark overlay */}
+  <div className="absolute inset-0 bg-blue-900 bg-opacity-60"></div>
+
+  {/* Content */}
+  <div className="relative z-10 max-w-3xl">
+    <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn">
+      Welcome to NEXINDI Company
+    </h1>
+    <p className="text-lg md:text-xl mb-6">
+      Empowering Africa through technology in Health, Finance, Agriculture, and Education.
+    </p>
+    <a href="/services">
+      <button className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition">
+        Get Started
+      </button>
+    </a>
+  </div>
+
+  {/* Slide indicators */}
+  <div className="absolute bottom-6 flex gap-3 z-10">
+    {heroImages.map((_, index) => (
+      <div
+        key={index}
+        className={`w-3 h-3 rounded-full cursor-pointer ${
+          index === currentSlide ? "bg-white" : "bg-white/50"
+        }`}
+        onClick={() => setCurrentSlide(index)}
+      ></div>
+    ))}
+  </div>
+</section>
+
 
         {/* About Section */}
-        <section className="py-16 px-4 max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">About NEXINDI</h2>
-          <img
-            src={aboutImage}
-            alt="About G-Tech"
-            className="w-full max-w-lg mx-auto rounded-lg shadow mb-6"
-          />
-          <p className="text-lg max-w-2xl mx-auto">
-            NEXINDI is a tech-driven startup focused on solving real-world problems across Africa by providing scalable, impactful solutions in critical sectors.
-          </p>
-        </section>
+        <section className="py-16 px-4 max-w-5xl mx-auto">
+  <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+    About NEXINDI
+  </h2>
+
+  <div className="flex flex-col md:flex-row items-center gap-8">
+    {/* Image */}
+    <img
+      src={aboutImage}
+      alt="About NEXINDI"
+      className="w-full md:w-1/2 max-w-lg rounded-lg shadow"
+    />
+
+    {/* Text */}
+    <p className="text-lg md:w-1/2">
+      NEXINDI TECH is a registered technology solutions company focused on building innovative digital products that help businesses, institutions, and individuals grow in the digital era. We specialize in web and mobile application development, custom software solutions, business systems, and digital platforms tailored to real-world needs. At NEXINDI, we combine creativity, technology, and strategy to deliver reliable, secure, and scalable solutions that empower our clients to automate processes, improve efficiency, and expand their digital presence with confidence.
+    </p>
+  </div>
+</section>
+
 
         {/* Services Section */}
         <section className="bg-gray-100 py-16 px-4">
@@ -68,6 +120,10 @@ function App() {
             ))}
           </div>
         </section>
+
+        <StatsSection />
+
+        <ClientsSection />
 
         {/* Call to Action */}
         <section className="py-16 px-4 text-center">
