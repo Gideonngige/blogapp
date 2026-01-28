@@ -6,7 +6,7 @@ const TermsOfService = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Terms of Service</h1>
       <p className="text-gray-700 mb-4"><strong>Effective Date:</strong> May 26, 2025</p>
       <p className="mb-6">
-        Welcome to <strong>GTech</strong>! These Terms of Service (“Terms”) govern your access to and use of our
+        Welcome to <strong>NEXINDI TECH Company</strong>! These Terms of Service (“Terms”) govern your access to and use of our
         website, products, and services. By using our services, you agree to be bound by these Terms.
       </p>
 
@@ -29,7 +29,7 @@ const TermsOfService = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">3. Intellectual Property</h2>
         <p className="text-gray-700">
-          All content on our site belongs to GTech or its licensors. You may not reproduce or distribute without permission.
+          All content on our site belongs to NEXINDI TECH Company or its licensors. You may not reproduce or distribute without permission.
         </p>
       </section>
 
@@ -80,10 +80,10 @@ const TermsOfService = () => {
       <section>
         <h2 className="text-xl font-semibold mb-2">10. Contact Us</h2>
         <p className="text-gray-700">
-          <strong>GTech Company</strong><br />
-          Email: gtechcompany01@gmail.com<br />
+          <strong>NEXINDI TECH Company</strong><br />
+          Email: nexinditechcompany@gmail.com<br />
           Phone: +254 797 655 727<br />
-          Website: <a href="https://blogapp-iota-wheat.vercel.app/" className="text-blue-600 underline">www.gtech.co.ke</a>
+          Website: <a href="https://www.gtechcompany.online/" className="text-blue-600 underline">www.nexinditechcompany.online</a>
         </p>
       </section>
     </div>
