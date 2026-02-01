@@ -21,7 +21,7 @@ const [currentSlide, setCurrentSlide] = useState(0);
 useEffect(() => {
   const interval = setInterval(() => {
     setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-  }, 5000); // change slide every 5 seconds
+  }, 3000); // change slide every 3 seconds
 
   return () => clearInterval(interval);
 }, []);
