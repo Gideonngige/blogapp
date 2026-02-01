@@ -1,4 +1,25 @@
+import GideonImg from "../images/gideon.jpg";
+import MichaelImg from "../images/Michael.webp";
+
+
 export default function About() {
+  const teamMembers = [
+    {
+      name: "Gideon Ushindi",
+      role: "Founder & Software Engineer",
+      description: "Gideon is a passionate Software Engineer and technology enthusiast based in Meru, Kenya, with experience in React, React Native, Flutter, Dart, PHP, Django, Laravel, WordPress, and UI/UX. He is also a machine learning enthusiast, building intelligent, data-driven systems focused on finance, education, health, and agriculture.",
+      image: GideonImg,
+      coffeeLink: "https://paystack.shop/pay/1uy0h8i1yw"
+    },
+    {
+      name: "Michael Njenga",
+      role: "Software Engineer & Cybersecurity Specialist",
+      description: "Michael is a dedicated software engineer and cybersecurity specialist with expertise in secure coding practices, network security, and application development. He is passionate about building robust and secure digital solutions.",
+      image: MichaelImg,
+      coffeeLink: "https://paystack.shop/pay/1uy0h8i1yw"
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white text-gray-800 p-6 md:p-12">
       <div className="max-w-4xl mx-auto text-center">
@@ -33,35 +54,39 @@ export default function About() {
           </div>
         </div>
 
-        {/* Developer Section */}
-        <div className="mt-16 text-left bg-gray-50 p-6 rounded-2xl shadow-md">
-          <h2 className="text-2xl font-bold text-blue-600 mb-3">About the Developer</h2>
-          <div className="md:flex items-center gap-6">
-            <img
-              src="https://res.cloudinary.com/dc68huvjj/image/upload/v1748097763/ushindi_yeddi2.jpg" // Replace with your actual image URL if available
-              alt="Gideon Ushindi"
-              className="w-28 h-28 rounded-full border-2 border-blue-500 object-cover mb-4 md:mb-0"
-            />
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800">Gideon Ushindi</h3>
-              <p className="text-gray-600 mt-2">
-                Gideon Ushindi is a passionate Software Engineer and technology enthusiast based in Meru, Kenya, with strong experience in React, React Native, Flutter, Dart, Php,  Django, Laravel, WordPress, and UI/UX. He is also a machine learning enthusiast with a keen interest in building intelligent, data-driven systems. Gideon is focused on creating practical, impactful digital solutions in the areas of finance, education, health, and agriculture, using technology to solve real-world problems and drive innovation.
-              </p>
-              <p className="text-blue-600 mt-2">
-                <a href="mailto:ushindigideon@gmail.com" className="hover:underline">ushindigideon@gmail.com</a>
-              </p>
-            </div>
+        {/* Team Section */}
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-blue-600 mb-8 text-center">Our Team</h2>
+          <div className="grid gap-10 md:grid-cols-2">
+            {teamMembers.map((member, index) => (
+              <div
+                key={index}
+                className="bg-gray-50 p-6 rounded-2xl shadow-md hover:shadow-lg transition flex flex-col items-center text-center"
+              >
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-28 h-28 rounded-full border-2 border-blue-500 object-cover mb-4"
+                />
+                <h3 className="text-xl font-semibold text-gray-800">{member.name}</h3>
+                <p className="text-blue-600 font-medium mb-2">{member.role}</p>
+                <p className="text-gray-600">{member.description}</p>
+                {/* <p className="text-blue-600 mt-2">
+                  <a href={`mailto:${member.email}`} className="hover:underline">{member.email}</a>
+                </p> */}
+                {member.coffeeLink && member.coffeeLink !== "#" && (
+                  <a
+                    href={member.coffeeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-blue-500 transition"
+                  >
+                    ☕ Buy me a coffee
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
-          <div className="mt-8 text-center">
-  <a
-    href="https://paystack.shop/pay/1uy0h8i1yw" // Replace this
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-blue-500 transition"
-  >
-    ☕ Buy me a coffee
-  </a>
-</div>
         </div>
       </div>
     </div>
