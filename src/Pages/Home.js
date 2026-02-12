@@ -28,14 +28,14 @@ useEffect(() => {
 
 
   // create a welcome alert when the home page loads saying  we are moving from G-Tech to NEXINDI
-  React.useEffect(() => {
-    Swal.fire({
-      title: 'Welcome to NEXINDI!',
-      text: 'We are excited to announce that G-Tech is now NEXINDI. Join us as we continue to empower Africa through technology!',
-      icon: 'info',
-      confirmButtonText: 'Explore NEXINDI'
-    });
-  }, []); 
+  // React.useEffect(() => {
+  //   Swal.fire({
+  //     title: 'Welcome to NEXINDI!',
+  //     text: 'We are excited to announce that G-Tech is now NEXINDI. Join us as we continue to empower Africa through technology!',
+  //     icon: 'info',
+  //     confirmButtonText: 'Explore NEXINDI'
+  //   });
+  // }, []); 
   return (
       <div className="font-sans text-gray-800">
         {/* Hero Section */}
