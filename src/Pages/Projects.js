@@ -39,7 +39,7 @@ const Projects = () => {
         <div className="container mx-auto text-center">
           <h1 className="text-4xl font-bold mb-4">Our Projects</h1>
           <p className="text-lg max-w-2xl mx-auto">
-            Explore the innovative solutions G-Tech has delivered for our clients.
+            Explore the innovative solutions Nexindi Tech Company has delivered for our clients.
           </p>
         </div>
       </header>
