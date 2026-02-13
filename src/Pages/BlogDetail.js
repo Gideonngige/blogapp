@@ -60,8 +60,8 @@ export default function BlogDetail() {
   };
 
   if (loading) return <Layout><p className="text-center">Loading...</p></Layout>;
-
   if (!blog) return <Layout><p className="text-center">Blog not found.</p></Layout>;
+
 
   return (
     
