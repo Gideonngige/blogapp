@@ -17,8 +17,8 @@ export default function Home() {
         ...post,
         author: post.name,
         date: post.created_at.split('T')[0],
-        avatar: `${API_URL}${post.profile_image}`|| 'https://via.placeholder.com/150',
-        blogImage: `${API_URL}${post.image}`,
+        avatar: `${post.profile_image}`|| 'https://via.placeholder.com/150',
+        blogImage: `${post.image}`,
       }));
       setBlogs(enriched);
     } catch (error) {
