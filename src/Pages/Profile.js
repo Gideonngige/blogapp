@@ -16,6 +16,7 @@ export default function Profile() {
   const [previewImage, setPreviewImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     setProfile({
@@ -48,6 +49,7 @@ export default function Profile() {
     if (selectedFile) {
       formData.append("profile_image", selectedFile);
     }
+    setIsSaving(true);
 
     try {
       const response = await fetch(
@@ -98,6 +100,8 @@ export default function Profile() {
         title: 'Oops...',
         text: 'Something went wrong. Please try again later.',
       });
+    }finally {
+      setIsSaving(false);
     }
   };
 
@@ -182,7 +186,7 @@ export default function Profile() {
             <img
               src={
                 previewImage ||
-                `${API_URL}${profile.profile_image}` ||
+                `${profile.profile_image}` ||
                 "https://via.placeholder.com/120"
               }
               alt="Profile"
@@ -239,7 +243,7 @@ export default function Profile() {
             onClick={handleSaveChanges}
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
           >
-            Save Changes
+            {isSaving ? "Saving..." : "Save Changes"}
           </button>
 
           <button

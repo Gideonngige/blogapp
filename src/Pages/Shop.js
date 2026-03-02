@@ -212,7 +212,7 @@ const Shop = () => {
               .map((product) => (
                 <div key={product.id} className="bg-white rounded-xl shadow p-4">
                   <img
-                    src={`${API_URL}${product.image}`}
+                    src={product.image}
                     alt={product.name}
                     className="w-full h-48 object-cover rounded"
                   />
