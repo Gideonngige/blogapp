@@ -47,28 +47,59 @@ export default function ForgotPassword() {
     };
     
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Forgot Password</h2>
-        <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-            <input
-                placeholder='e.g johndoe@example.com'
-                type="email"
-                value={email}
-                onChange={handleChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-            />
-            </div>
-            <button
-            type="submit"
-            className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-200"
-            >
-            {sending ? 'Sending...' : 'Send Reset Link'}
-            </button>
-        </form>
-        {message && <p className="mt-4 text-center text-red-600">{message}</p>}
-        </div>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+  <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+
+    {/* Logo */}
+    <div className="flex justify-center mb-4">
+      <img
+        src="/logo.png"  // <-- Replace with your Nexindi Tech logo path
+        alt="Nexindi Tech"
+        className="h-16 w-16 object-contain"
+      />
+    </div>
+
+    {/* Page Title */}
+    <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
+      Forgot Password
+    </h2>
+    {/* <hr className="mb-10" /> */}
+
+    {/* Form */}
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Email
+        </label>
+        <input
+          placeholder="e.g johndoe@example.com"
+          type="email"
+          value={email}
+          onChange={handleChange}
+          required
+          className="w-full mb-8 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+      >
+        {sending ? "Sending..." : "Send Reset Link"}
+      </button>
+    </form>
+
+    {message && (
+      <p className="mt-4 text-center text-red-600">{message}</p>
+    )}
+
+    <p className="mt-4 text-center text-sm text-gray-600">
+      Remembered your password?{" "}
+      <a href="/signin" className="text-blue-600 hover:underline">
+        Sign In
+      </a>
+    </p>
+  </div>
+</div>
     );
     }
