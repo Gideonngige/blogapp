@@ -21,7 +21,7 @@ export default function Header() {
 
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-6 font-medium">
 
           <Link to="/">Home</Link>
           <Link to="/blog">Blogs</Link>
@@ -59,7 +59,7 @@ export default function Header() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-blue-500 px-4 pb-4">
-          <nav className="flex flex-col space-y-2">
+          <nav className="flex flex-col space-y-2 font-medium">
             <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
             <Link to="/blog" onClick={() => setIsOpen(false)}>Blogs</Link>
             <Link to="/post-blog" onClick={() => setIsOpen(false)}>Post Blog</Link>
@@ -70,6 +70,7 @@ export default function Header() {
             <Link to='/our-projects' onClick={() => setIsOpen(false)}>Our Projects</Link>
             <Link to="/orders" onClick={() => setIsOpen(false)}>My Orders</Link>
             <Link to="/notifications" onClick={() => setIsOpen(false)}>Notifications</Link>
+            <hr className="border-t border-blue-400 my-2"></hr>
 
             {user ? (
               <div className="flex items-center space-x-3 mt-3">
