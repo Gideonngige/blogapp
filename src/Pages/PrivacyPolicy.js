@@ -82,7 +82,7 @@ const PrivacyPolicy = () => {
           <strong>NEXINDI TECH Company</strong><br />
           Email: nexinditechcompany@gmail.com<br />
           Phone: +254 797 655 727<br />
-          Website: <a href="https://www.gtechcompany.online/" className="text-blue-600 underline">www.nexinditechcompany.online</a>
+          Website: <a href="https://www.nexinditechcompany.online/" className="text-blue-600 underline">www.nexinditechcompany.online</a>
         </p>
       </section>
     </div>
