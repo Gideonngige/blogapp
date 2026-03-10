@@ -88,7 +88,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
               <p className="text-gray-700">
-                {blog.content.length > 200 ? `${blog.content.slice(0, 200)}...` : blog.content}
+                {blog.content.length > 200 ? `${blog.content.slice(0, 500)}...` : blog.content}
               </p>
               <div className="flex justify-between items-center mt-4">
                 <button
