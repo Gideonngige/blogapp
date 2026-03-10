@@ -1,146 +1,189 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { API_URL } from './Config/Env';
+import React, { useState } from "react";
+import axios from "axios";
+import { API_URL } from "./Config/Env";
 import Swal from "sweetalert2";
 
 export default function PostBlog() {
-  const user_id = localStorage.getItem('user_id');
+  const user_id = localStorage.getItem("user_id");
   const [isposting, setIsPosting] = useState(false);
-  // alert("UserId: " + user_id);
+
   const [form, setForm] = useState({
-    title: '',
+    title: "",
     image: null,
-    content: '',
-    user_id: user_id || '',
+    content: "",
+    user_id: user_id || "",
   });
 
-  const [message, setMessage] = useState('');
-
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'image') {
-      setForm({ ...form, image: files[0] });
-    } else {
-      setForm({ ...form, [name]: value });
+  const { name, value, files } = e.target;
+
+  if (name === "image") {
+    const file = files[0];
+
+    if (file) {
+      // Check file size (2 MB = 2 * 1024 * 1024 bytes)
+      if (file.size > 2 * 1024 * 1024) {
+        Swal.fire({
+          icon: "error",
+          title: "File Too Large",
+          text: "Image size must not exceed 2 MB.",
+        });
+        // Clear the input
+        e.target.value = null;
+        setForm({ ...form, image: null });
+        setImagePreview(null);
+        return;
+      }
+
+      setForm({ ...form, image: file });
+      setImagePreview(URL.createObjectURL(file));
     }
-  };
+  } else {
+    setForm({ ...form, [name]: value });
+  }
+};
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     if (!form.user_id) {
-      // use sweetalert2 to show the alert
       Swal.fire({
-        icon: 'warning',
-        title: 'Not Signed In',
-        text: 'Please sign in to post a blog.',
+        icon: "warning",
+        title: "Not Signed In",
+        text: "Please sign in to post a blog.",
       });
       return;
     }
 
-
-    e.preventDefault();
-
     const formData = new FormData();
-    formData.append('title', form.title);
-    formData.append('content', form.content);
-    formData.append('image', form.image);
-    formData.append('user_id', form.user_id);
+    formData.append("title", form.title);
+    formData.append("content", form.content);
+    formData.append("image", form.image);
+    formData.append("user_id", form.user_id);
+
     setIsPosting(true);
+
     try {
-      const response = await axios.post(
-        `${API_URL}/postblog/`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      // use sweetalert2 to show success
+      const response = await axios.post(`${API_URL}/postblog/`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
       Swal.fire({
-        icon: 'success',
-        title: 'Blog Posted',
-        text: 'Your blog has been posted successfully!',
+        icon: "success",
+        title: "Blog Posted",
+        text: "Your blog has been posted successfully!",
       });
 
       if (response.status === 200 || response.status === 201) {
-        setMessage('Blog posted successfully!');
-        // use sweetalert2 to show success
-        Swal.fire({
-          icon: 'success',
-          title: 'Blog Posted',
-          text: 'Your blog has been posted successfully!',
-        });
-        setForm({ title: '', image: null, content: '' });
-        console.log('Blog posted successfully:', response.data);
+        setForm({ title: "", image: null, content: "" });
+        setImagePreview(null);
       }
-
-      
     } catch (error) {
       console.error(error);
-      setMessage('Failed to post blog. Check console for errors.');
-      // use sweetalert2 to show error
+
       Swal.fire({
-        icon: 'error',
-        title: 'Post Failed',
-        text: 'There was an error posting your blog. Please try again later.',
+        icon: "error",
+        title: "Post Failed",
+        text: "There was an error posting your blog.",
       });
-    }
-    finally {
+    } finally {
       setIsPosting(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow">
-        <h2 className="text-2xl font-bold mb-6 text-center">Post a New Blog</h2>
+    <div className="min-h-screen bg-gray-50 py-10 px-4">
+      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8">
 
-        <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
+        {/* Page Title */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Write a Blog Post
+          </h1>
+          <p className="text-gray-500 mt-1">
+            Share your knowledge, ideas, or experience with the community.
+          </p>
+        </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+          encType="multipart/form-data"
+        >
+          {/* Title */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Blog Title
+            </label>
+
             <input
               type="text"
               name="title"
               value={form.title}
               required
               onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="Enter blog title..."
+              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
+          {/* Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Image</label>
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleChange}
-              className="w-full"
-            />
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Featured Image
+            </label>
+
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition">
+
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="preview"
+                  className="mx-auto max-h-60 rounded-lg mb-4"
+                />
+              ) : (
+                <p className="text-gray-500 mb-3">
+                  Upload a blog cover image
+                </p>
+              )}
+
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleChange}
+                className="block mx-auto text-sm"
+              />
+            </div>
           </div>
 
+          {/* Content */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Blog Content</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Blog Content
+            </label>
+
             <textarea
               name="content"
-              rows="6"
+              rows="8"
               value={form.content}
               required
               onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="Write your blog content here..."
+              className="w-full border border-gray-300 px-4 py-3 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none"
             ></textarea>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition flex justify-center items-center"
           >
-            {isposting ? 'Posting...' : 'Post Blog'}
+            {isposting ? "Posting..." : "Publish Blog"}
           </button>
         </form>
-
-        {message && <p className="mt-4 text-center text-green-600">{message}</p>}
       </div>
     </div>
   );
