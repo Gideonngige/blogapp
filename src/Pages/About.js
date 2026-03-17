@@ -9,14 +9,14 @@ export default function About() {
       role: "Founder & Software Engineer",
       description: "Gideon is a passionate Software Engineer and technology enthusiast based in Meru, Kenya, with experience in React, React Native, Flutter, Dart, PHP, Django, Laravel, WordPress, and UI/UX. He is also a machine learning enthusiast, building intelligent, data-driven systems focused on finance, education, health, and agriculture.",
       image: GideonImg,
-      coffeeLink: "https://paystack.shop/pay/1uy0h8i1yw"
+      coffeeLink: "https://paystack.shop/pay/xwtue-o93f"
     },
     {
       name: "Michael Njenga",
       role: "Software Engineer & Cybersecurity Specialist",
       description: "Michael is a dedicated software engineer and cybersecurity specialist with expertise in secure coding practices, network security, and application development. He is passionate about building robust and secure digital solutions.",
       image: MichaelImg,
-      coffeeLink: "https://paystack.shop/pay/1uy0h8i1yw"
+      coffeeLink: "https://paystack.shop/pay/xwtue-o93f"
     },
   ];
 
