@@ -59,7 +59,7 @@ const TermsOfService = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">7. Limitation of Liability</h2>
         <p className="text-gray-700">
-          GTech is not liable for indirect or consequential damages related to your use of our services.
+          NEXINDI TECH Company is not liable for indirect or consequential damages related to your use of our services.
         </p>
       </section>
 
@@ -83,7 +83,7 @@ const TermsOfService = () => {
           <strong>NEXINDI TECH Company</strong><br />
           Email: nexinditechcompany@gmail.com<br />
           Phone: +254 797 655 727<br />
-          Website: <a href="https://www.gtechcompany.online/" className="text-blue-600 underline">www.nexinditechcompany.online</a>
+          Website: <a href="https://nexinditechcompany.online/" className="text-blue-600 underline">www.nexinditechcompany.online</a>
         </p>
       </section>
     </div>
