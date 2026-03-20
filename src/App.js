@@ -24,6 +24,11 @@ import BlogDetail from './Pages/BlogDetail'; // optional
 import Profile from './Pages/Profile';
 import Projects from './Pages/Projects';
 import Stock from './Pages/Stocks';
+import InvoiceGenerator from './Pages/InvoiceGenerator';
+import Invoices from './Pages/Invoices';
+import Payments from './Pages/Payments';
+import Subscriptions from './Pages/Subscriptions';
+import Plans from './Pages/Plans';
 
 import { UserProvider } from './Pages/Context/UserContext';
 
@@ -56,6 +61,11 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/our-projects" element={<Projects />} />
         <Route path="/stocks" element={<Stock />} />
+        <Route path="/invoice-generator" element={<InvoiceGenerator />} />
+        <Route path="/invoices" element={<Invoices />} />
+        <Route path="/payments" element={<Payments />} />
+        <Route path="/subscriptions" element={<Subscriptions />} />
+        <Route path="/plans" element={<Plans />} />
         {/* Add more routes as needed */}
       </Routes>
       </Layout>
