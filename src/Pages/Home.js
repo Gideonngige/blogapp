@@ -11,6 +11,7 @@ import StatsSection from "./Components/StatsSection";
 import hero1 from "../images/blue_home.jpg";
 import hero2 from "../images/white_home.jpg";
 import hero3 from "../images/home_third.jpg";
+import { API_URL } from "./Config/Env";
 
 const heroImages = [hero1, hero2, hero3];
 
@@ -36,6 +37,29 @@ useEffect(() => {
   //     confirmButtonText: 'Explore NEXINDI'
   //   });
   // }, []); 
+
+
+  useEffect(() => {
+  const trackVisit = async () => {
+    try {
+      await fetch(`${API_URL}/track_visit/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          page: "home",
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (error) {
+      console.error("Error tracking visit:", error);
+    }
+  };
+
+  trackVisit();
+}, []);
+
   return (
       <div className="font-sans text-gray-800">
         {/* Hero Section */}

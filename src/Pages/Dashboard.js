@@ -10,6 +10,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
   const [messages, setMessages] = useState([]);
+  const [totalVisits, setTotalVisits] = useState(0);
+  const [visits, setVisits] = useState([]);
+  const [loadingVisits, setLoadingVisits] = useState(false);
   const role = localStorage.getItem('role');
   const navigate = useNavigate();
 
@@ -65,6 +68,25 @@ const Dashboard = () => {
   }, []);
   // end of function to fetch messages
 
+  useEffect(() => {
+  const fetchVisits = async () => {
+    try {
+      // total visits
+      const totalRes = await axios.get(`${API_URL}/total_visits/`);
+      setTotalVisits(totalRes.data.total_visits);
+
+      // visits grouped by page
+      const pageVisits = await axios.get(`${API_URL}/get_visits/`);
+      setVisits(pageVisits.data);
+
+    } catch (error) {
+      console.error("Error fetching visits:", error);
+    }
+  };
+
+  fetchVisits();
+}, []);
+
   if (loading) return <p className="text-center text-gray-500">Loading dashboard...</p>;
 
   return (
@@ -79,6 +101,7 @@ const Dashboard = () => {
         <StatCard title="Products" value={stats.total_products} />
         <StatCard title="Notifications" value={stats.total_notifications} />
         <StatCard title="User Feedbacks" value={stats.total_messages} />
+        <StatCard title="Total Visits" value={totalVisits} />
       </div>
 
       {/* Sales Summary */}
@@ -107,6 +130,35 @@ const Dashboard = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
+      
+      <h2 className="text-xl font-semibold mt-8 mb-4">Website Visitors</h2>
+
+{loadingVisits ? (
+  <p className="text-gray-500">Loading visitors...</p>
+) : (
+  <div className="overflow-x-auto">
+    <table className="min-w-full bg-white border rounded-lg shadow">
+      <thead>
+        <tr className="bg-gray-100 text-left text-sm uppercase text-gray-600">
+          <th className="p-3">IP Address</th>
+          <th className="p-3">Page</th>
+          <th className="p-3">Time Visited</th>
+        </tr>
+      </thead>
+      <tbody>
+        {visits.map((visit, index) => (
+          <tr key={index} className="border-t hover:bg-gray-50">
+            <td className="p-3">{visit.ip_address || "N/A"}</td>
+            <td className="p-3">{visit.page}</td>
+            <td className="p-3">
+              {new Date(visit.created_at).toLocaleString()}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
 
       <div className="bg-white p-6 rounded-lg shadow-md mt-8">
         <button
