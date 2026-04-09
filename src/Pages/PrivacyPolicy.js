@@ -7,7 +7,7 @@ const PrivacyPolicy = () => {
       <p className="text-gray-700 mb-4"><strong>Effective Date:</strong> May 26, 2025</p>
 
       <p className="mb-6">
-        At <strong>NEXINDI TECH Company</strong>, your privacy is important to us. This Privacy Policy explains how we
+        At <strong>Nexindi Tech Company</strong>, your privacy is important to us. This Privacy Policy explains how we
         collect, use, disclose, and safeguard your information when you use our website, products, and services.
       </p>
 
@@ -79,7 +79,7 @@ const PrivacyPolicy = () => {
         <p className="text-gray-700">
           If you have any questions or concerns about this Privacy Policy, contact us at:
           <br /><br />
-          <strong>NEXINDI TECH Company</strong><br />
+          <strong>Nexindi Tech Company</strong><br />
           Email: nexinditechcompany@gmail.com<br />
           Phone: +254 797 655 727<br />
           Website: <a href="https://www.nexinditechcompany.online/" className="text-blue-600 underline">www.nexinditechcompany.online</a>

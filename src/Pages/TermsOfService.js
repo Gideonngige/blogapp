@@ -6,7 +6,7 @@ const TermsOfService = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Terms of Service</h1>
       <p className="text-gray-700 mb-4"><strong>Effective Date:</strong> May 26, 2025</p>
       <p className="mb-6">
-        Welcome to <strong>NEXINDI TECH Company</strong>! These Terms of Service (“Terms”) govern your access to and use of our
+        Welcome to <strong>Nexindi Tech Company</strong>! These Terms of Service (“Terms”) govern your access to and use of our
         website, products, and services. By using our services, you agree to be bound by these Terms.
       </p>
 
@@ -59,7 +59,7 @@ const TermsOfService = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-2">7. Limitation of Liability</h2>
         <p className="text-gray-700">
-          NEXINDI TECH Company is not liable for indirect or consequential damages related to your use of our services.
+          Nexindi Tech Company is not liable for indirect or consequential damages related to your use of our services.
         </p>
       </section>
 
@@ -80,7 +80,7 @@ const TermsOfService = () => {
       <section>
         <h2 className="text-xl font-semibold mb-2">10. Contact Us</h2>
         <p className="text-gray-700">
-          <strong>NEXINDI TECH Company</strong><br />
+          <strong>Nexindi Tech Company</strong><br />
           Email: nexinditechcompany@gmail.com<br />
           Phone: +254 797 655 727<br />
           Website: <a href="https://nexinditechcompany.online/" className="text-blue-600 underline">www.nexinditechcompany.online</a>

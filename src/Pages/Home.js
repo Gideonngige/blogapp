@@ -77,7 +77,7 @@ useEffect(() => {
   {/* Content */}
   <div className="relative z-10 max-w-3xl">
     <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn">
-      Welcome to NEXINDI Company
+      Welcome to Nexindi Tech Company
     </h1>
     <p className="text-lg md:text-xl mb-6">
       Empowering Africa through technology in Health, Finance, Agriculture, and Education.
